@@ -36,9 +36,4 @@ public class TeleConfirmLite {
     public void onPreInit(GamePreInitializationEvent event) {
         new CommandRegistrar().registerCommands(this);
     }
-
-    @Listener
-    public void disable(GameStoppingServerEvent event) {
-        // Perform shutdown tasks here
-    }
 }
