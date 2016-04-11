@@ -1,5 +1,10 @@
 package com.lagopusempire.teleconfirmlite;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.world.Location;
 
@@ -9,31 +14,60 @@ import org.spongepowered.api.world.Location;
  */
 public class RequestManager {
     
-    public void requestTo(Player player, Player target) {
-        
+    private final Map<UUID, TclPlayerData> requests = new HashMap<>();
+    
+    private TclPlayerData getPlayerData(UUID playerId) {
+        TclPlayerData data = requests.get(playerId);
+        if(data == null) {
+            data = new TclPlayerData();
+            requests.put(playerId, data);
+        }
+        return data;
     }
     
-    public void requestHere(Player player, Player target) {
-        
+    public void request(Player player, Player target, RequestType type) {
+        //these details are constructed from the target's prespective
+        RequestDetails details = new RequestDetails(player.getUniqueId(), type.reverse());
+        TclPlayerData data = getPlayerData(target.getUniqueId());
+        data.setRequestDetails(details);
     }
     
-    public Location accept(Player player) {
-        return null;
+//    public boolean hasPendingRequest(UUID playerId) {
+//        if(!requests.containsKey(playerId)) {
+//            return false;
+//        }
+//        TclPlayerData data = getPlayerData(playerId);
+//        return data.getRequestDetails() == null;
+//    }
+    
+    public AcceptResultPack accept(Player player) {
+        UUID playerId = player.getUniqueId();
+        TclPlayerData data = getPlayerData(playerId);
+        RequestDetails details = data.getRequestDetails();
+        if(details == null) {
+            return new AcceptResultPack(AcceptResult.NO_PENDING_REQUEST);
+        }
+        UUID target = details.getTarget();
+        Optional<Player> targetPlayer = Sponge.getServer().getPlayer(target);
+        if(targetPlayer.isPresent()) {
+            data.setPriorLoc(player.getLocation());
+            return new AcceptResultPack(targetPlayer.get().getLocation());
+        }
+        return new AcceptResultPack(AcceptResult.TARGET_OFFLINE);
     }
     
-    public void deny(Player player) {
-        
+    public void deny(UUID playerId) {
+        requests.remove(playerId);
     }
     
-    public void clear(Player player) {
-        
+    public Location getPriorLoc(UUID playerId) {
+        TclPlayerData data = getPlayerData(playerId);
+        Location priorLoc = data.getPriorLoc();
+        data.setPriorLoc(null);
+        return priorLoc;
     }
     
-    public Location getPriorLoc(Player player) {
-        return null;
-    }
-    
-    public void toggle(Player player) {
-        
+    public void toggle(UUID playerId) {
+        getPlayerData(playerId).toggleAcceptingRequests();
     }
 }
