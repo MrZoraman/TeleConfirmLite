@@ -31,9 +31,11 @@ public class TeleConfirmLite {
     // Give us a configuration to work from
 //    @Inject @DefaultConfig(sharedRoot = true) private ConfigurationLoader<CommentedConfigurationNode> configLoader;
     @Inject private Game game;
+    
+    private final RequestManager requestManager = new RequestManager();
 
     @Listener
     public void onPreInit(GamePreInitializationEvent event) {
-        new CommandRegistrar().registerCommands(this);
+        new CommandRegistrar().registerCommands(this, requestManager);
     }
 }
