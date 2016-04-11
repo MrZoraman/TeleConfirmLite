@@ -14,6 +14,7 @@ public class TpcCommand implements CommandExecutor {
     
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+        
         return CommandResult.success();
     }
 }
