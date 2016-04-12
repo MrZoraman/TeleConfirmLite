@@ -1,6 +1,7 @@
 package com.lagopusempire.teleconfirmlite;
 
 import com.lagopusempire.teleconfirmlite.commands.TpcCommand;
+import com.lagopusempire.teleconfirmlite.messages.MessageManager;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
@@ -12,13 +13,13 @@ import org.spongepowered.api.text.Text;
  */
 public class CommandRegistrar {
     
-    public void registerCommands(TeleConfirmLite plugin, RequestManager manager) {
+    public void registerCommands(TeleConfirmLite plugin, RequestManager manager, MessageManager mm) {
         CommandSpec tpcCmd = CommandSpec.builder()
                 .description(Text.of("Request to teleport to the specified player."))
                 .permission("tcl.tpc")
                 .arguments(
                     GenericArguments.onlyOne(GenericArguments.player(Text.of("playername"))))
-                .executor(new TpcCommand(manager))
+                .executor(new TpcCommand(manager, mm))
                 .build();
         Sponge.getCommandManager().register(plugin, tpcCmd, "tpc", "tpa");
         

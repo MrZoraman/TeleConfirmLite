@@ -2,6 +2,8 @@ package com.lagopusempire.teleconfirmlite.commands;
 
 import com.lagopusempire.teleconfirmlite.RequestManager;
 import com.lagopusempire.teleconfirmlite.RequestType;
+import com.lagopusempire.teleconfirmlite.messages.MessageManager;
+import com.lagopusempire.teleconfirmlite.messages.Messages;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -16,15 +18,17 @@ import org.spongepowered.api.text.Text;
  */
 public class TpcCommand implements CommandExecutor {
     private final RequestManager manager;
+    private final MessageManager mm;
     
-    public TpcCommand(RequestManager manager) {
+    public TpcCommand(RequestManager manager, MessageManager mm) {
         this.manager = manager;
+        this.mm = mm;
     }
     
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         if(!(src instanceof Player)) {
-            src.sendMessage(Text.of("This command cannot be used by a non-player!"));
+            src.sendMessage(mm.getMessage(Messages.PLAYER_ONLY));
             return CommandResult.success();
         }
         

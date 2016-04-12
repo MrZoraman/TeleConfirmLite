@@ -1,6 +1,7 @@
 package com.lagopusempire.teleconfirmlite;
 
 import com.google.inject.Inject;
+import com.lagopusempire.teleconfirmlite.messages.MessageManager;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -53,6 +54,8 @@ public class TeleConfirmLite {
     private Path privateConfigDir;
     
     private final RequestManager requestManager = new RequestManager();
+    
+    private MessageManager mm;
 
     @Listener
     public void onPreInit(GamePreInitializationEvent event) {
@@ -68,16 +71,17 @@ public class TeleConfirmLite {
         
         try {
             ConfigurationNode rootNode = messagesConf.load();
-            Map<Object, ? extends ConfigurationNode> children = rootNode.getChildrenMap();
+            mm = new MessageManager(rootNode);
+//            Map<Object, ? extends ConfigurationNode> children = rootNode.getChildrenMap();
 //            System.out.println("thing: " + children.get("thing").getString());
 //            System.out.println("thing2: " + children.get("thing2").getString());
 //            System.out.println("string: " + rootNode.getString());
 //            System.out.println("rootNode: " + rootNode);
-            messagesConf.save(rootNode);
+//            messagesConf.save(rootNode);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
         
-        new CommandRegistrar().registerCommands(this, requestManager);
+        new CommandRegistrar().registerCommands(this, requestManager, mm);
     }
 }
