@@ -68,31 +68,37 @@ public class TeleConfirmLite {
 
     @Listener
     public void onPreInit(GamePreInitializationEvent event) {
-        try {
-            reloadConfigs();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        boolean failed = reloadConfigs();
         
         commandRegistrar.registerCommands(this);
+        if(failed) {
+            
+        }
     }
     
-    public void reloadConfigs() throws IOException {
-        Path pluginDir = privateConfigDir.getParent();
-        File pluginPath = pluginDir.toFile();
-        File messagesConfFile = new File(pluginPath, "messages.conf");
-        boolean writeMessagesFile = !messagesConfFile.exists();
-        URL jarMessages = this.getClass().getResource("messages.conf");
-        ConfigurationLoader<CommentedConfigurationNode> messagesConf = HoconConfigurationLoader.builder()
-                .setPath(Paths.get(messagesConfFile.toURI()))
-                .setURL(jarMessages)
-                .build();
-        ConfigurationNode rootNode = messagesConf.load();
-        mm = new MessageManager(rootNode);
-        if(writeMessagesFile) {
-            logger.info("Writing default messages.conf");
-            messagesConf.save(rootNode);
+    public boolean reloadConfigs() {
+        try {
+            Path pluginDir = privateConfigDir.getParent();
+            File pluginPath = pluginDir.toFile();
+            File messagesConfFile = new File(pluginPath, "messages.conf");
+            boolean writeMessagesFile = !messagesConfFile.exists();
+            URL jarMessages = this.getClass().getResource("messages.conf");
+            ConfigurationLoader<CommentedConfigurationNode> messagesConf = HoconConfigurationLoader.builder()
+                    .setPath(Paths.get(messagesConfFile.toURI()))
+                    .setURL(jarMessages)
+                    .build();
+            ConfigurationNode rootNode = messagesConf.load();
+            mm = new MessageManager(rootNode);
+            if(writeMessagesFile) {
+                logger.info("Writing default messages.conf");
+                messagesConf.save(rootNode);
+            }
+            commandRegistrar.initCommands(requestManager, mm);
+        } catch (IOException e) {
+            logger.error("Failed to load configuration files!", e);
+            return false;
         }
-        commandRegistrar.initCommands(requestManager, mm);
+        
+        return true;
     }
 }

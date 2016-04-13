@@ -81,4 +81,10 @@ public class CommandRegistrar {
             cmd.setManagers(manager, mm);
         }
     }
+    
+    public void setEnabled(boolean enabled) {
+        for(CommandBase cmd : commands) {
+            cmd.setEnabled(enabled);
+        }
+    }
 }

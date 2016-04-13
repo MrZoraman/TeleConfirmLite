@@ -1,9 +1,7 @@
 package com.lagopusempire.teleconfirmlite.commands;
 
 import com.google.common.collect.ImmutableMap;
-import com.lagopusempire.teleconfirmlite.RequestManager;
 import com.lagopusempire.teleconfirmlite.RequestType;
-import com.lagopusempire.teleconfirmlite.messages.MessageManager;
 import com.lagopusempire.teleconfirmlite.messages.Messages;
 import java.util.Map;
 import org.spongepowered.api.command.CommandException;
@@ -19,7 +17,7 @@ import org.spongepowered.api.entity.living.player.Player;
 public class TpcCommand extends CommandBase {
     
     @Override
-    public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+    public CommandResult executeCommand(CommandSource src, CommandContext args) throws CommandException {
         if(!(src instanceof Player)) {
             src.sendMessage(getMessageManager().getMessage(Messages.PLAYER_ONLY).toText());
             return CommandResult.success();
