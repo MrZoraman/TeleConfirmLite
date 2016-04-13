@@ -72,7 +72,8 @@ public class TeleConfirmLite {
         load();
     }
     
-    public void load() {
+    public boolean load() {
+        boolean success = true;
         try {
             Path pluginDir = privateConfigDir.getParent();
             File pluginPath = pluginDir.toFile();
@@ -92,9 +93,11 @@ public class TeleConfirmLite {
             commandRegistrar.initCommands(requestManager, mm);
         } catch (IOException e) {
             logger.error("Failed to load configuration files!", e);
-            commandRegistrar.setEnabled(false);
+            success = false;
         } finally {
+            commandRegistrar.setEnabled(success);
             commandRegistrar.initCommands(requestManager, mm);
+            return success;
         }
     }
 }
