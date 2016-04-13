@@ -68,15 +68,11 @@ public class TeleConfirmLite {
 
     @Listener
     public void onPreInit(GamePreInitializationEvent event) {
-        boolean failed = reloadConfigs();
-        
         commandRegistrar.registerCommands(this);
-        if(failed) {
-            
-        }
+        load();
     }
     
-    public boolean reloadConfigs() {
+    public void load() {
         try {
             Path pluginDir = privateConfigDir.getParent();
             File pluginPath = pluginDir.toFile();
@@ -96,9 +92,9 @@ public class TeleConfirmLite {
             commandRegistrar.initCommands(requestManager, mm);
         } catch (IOException e) {
             logger.error("Failed to load configuration files!", e);
-            return false;
+            commandRegistrar.setEnabled(false);
+        } finally {
+            commandRegistrar.initCommands(requestManager, mm);
         }
-        
-        return true;
     }
 }
