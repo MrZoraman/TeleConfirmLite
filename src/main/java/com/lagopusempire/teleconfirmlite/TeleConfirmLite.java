@@ -7,8 +7,11 @@ import com.lagopusempire.teleconfirmlite.messages.MessageManager;
 import com.lagopusempire.teleconfirmlite.messages.Messages;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -48,22 +51,22 @@ import org.spongepowered.api.text.serializer.TextSerializers;
 public class TeleConfirmLite {
 
 //    // These are all injected on plugin load for users to work from
-    @Inject private Logger logger;
+    @Inject
+    private Logger logger;
 //    // Give us a configuration to work from
 ////    @Inject @DefaultConfig(sharedRoot = true) private ConfigurationLoader<CommentedConfigurationNode> configLoader;
 //    @Inject private Game game;
-    
+
 //    @Inject
 //    @DefaultConfig(sharedRoot = false)
 //    private ConfigurationLoader<CommentedConfigurationNode> configLoader;
-    
     @Inject
     @DefaultConfig(sharedRoot = false)
     private Path privateConfigDir;
-    
+
     private final RequestManager requestManager = new RequestManager();
     private final CommandRegistrar commandRegistrar = new CommandRegistrar();
-    
+
     private MessageManager mm;
 
     @Listener
@@ -71,30 +74,49 @@ public class TeleConfirmLite {
         commandRegistrar.registerCommands(this);
         load();
     }
-    
+
     public boolean load() {
         boolean success = true;
         try {
+            System.out.println("reloading...");
+            
+            ConfigurationNode rootNode;
+            
             Path pluginDir = privateConfigDir.getParent();
             File pluginPath = pluginDir.toFile();
             File messagesConfFile = new File(pluginPath, "messages.conf");
-            boolean writeMessagesFile = !messagesConfFile.exists();
-            URL jarMessages = this.getClass().getResource("messages.conf");
-            ConfigurationLoader<CommentedConfigurationNode> messagesConf = HoconConfigurationLoader.builder()
-                    .setPath(Paths.get(messagesConfFile.toURI()))
-                    .setURL(jarMessages)
-                    .build();
-            ConfigurationNode rootNode = messagesConf.load();
-            mm = new MessageManager(rootNode);
-            if(writeMessagesFile) {
+            Path messagesConfPath = Paths.get(messagesConfFile.toURI());
+            if(!messagesConfFile.exists()) {
                 logger.info("Writing default messages.conf");
+//                ExportResource(TeleConfirmLite.class, "messages.conf");
+//            System.out.println("writeMessagesFile: " + writeMessagesFile);
+                URL jarMessages = this.getClass().getResource("messages.conf");
+                
+                ConfigurationLoader<CommentedConfigurationNode> messagesConf = HoconConfigurationLoader
+                        .builder()
+                        .setPath(messagesConfPath)
+                        .setURL(jarMessages)
+                        .build();
+                messagesConf.load();
+                rootNode = messagesConf.load();
                 messagesConf.save(rootNode);
+            } else {
+                System.out.println("messagesConfPath: " + messagesConfPath);
+                ConfigurationLoader<CommentedConfigurationNode> messagesConf = HoconConfigurationLoader.builder()
+                        .setPath(messagesConfPath)
+                        .build();
+                rootNode = messagesConf.load();
             }
+            
+            System.out.println("loading");
+            mm = new MessageManager(rootNode);
             commandRegistrar.initCommands(requestManager, mm);
+            System.out.println("all has gone well");
         } catch (IOException e) {
             logger.error("Failed to load configuration files!", e);
             success = false;
         } finally {
+            System.out.println("done! success: " + success);
             commandRegistrar.setEnabled(success);
             commandRegistrar.initCommands(requestManager, mm);
             return success;
