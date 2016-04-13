@@ -69,7 +69,7 @@ public class TeleConfirmLite {
         Path pluginDir = privateConfigDir.getParent();
         File pluginPath = pluginDir.toFile();
         File messagesConfFile = new File(pluginPath, "messages.conf");
-        boolean writeMessages = !messagesConfFile.exists();
+        boolean writeMessagesFile = !messagesConfFile.exists();
         URL jarMessages = this.getClass().getResource("messages.conf");
         
         ConfigurationLoader<CommentedConfigurationNode> messagesConf = HoconConfigurationLoader.builder()
@@ -80,42 +80,13 @@ public class TeleConfirmLite {
         try {
             ConfigurationNode rootNode = messagesConf.load();
             mm = new MessageManager(rootNode);
-//            Map<Object, ? extends ConfigurationNode> children = rootNode.getChildrenMap();
-//            System.out.println("thing: " + children.get("thing").getString());
-//            System.out.println("thing2: " + children.get("thing2").getString());
-//            System.out.println("string: " + rootNode.getString());
-//            System.out.println("rootNode: " + rootNode);
-            if(writeMessages) {
+            if(writeMessagesFile) {
                 logger.info("Writing default messages.conf");
                 messagesConf.save(rootNode);
             }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        
-//         Map<String, TextElement> msgArgs = ImmutableMap.of(
-//                "sender", Text.of("mohm"),
-//                "player", Text.of("sas")
-//            );
-//         Text msg = mm.getMessage(Messages.SENDER_REQUEST_TO).apply(msgArgs).build();
-//         Sponge.getServer().getConsole().sendMessage(msg);
-//            .sendMessage(mm.getMessage(Messages.SENDER_REQUEST_TO).apply(msgArgs).build());
-
-//        TextTemplate template = TextTemplate.of(
-//            "Welcome to ",
-//            TextTemplate.arg("server"), " ",
-//            TextTemplate.arg("player"), "!"
-//        );
-//        TextTemplate template = TextTemplate.of("Welcome to {server} {player}!");
-//        System.out.println("arg length: " + template.getArguments().size());
-//        for(Map.Entry<String, TextTemplate.Arg> entry : template.getArguments().entrySet()) {
-//            System.out.println("template key: " + entry.getKey() + ", value: " + entry.getValue());
-//        }
-//        String temp = TextSerializers.FORMATTING_CODE.serialize(template.toText());
-//        System.out.println("TEMPLATE: " + temp);
-//        Text message = template.apply(ImmutableMap.of("server", Text.of("bigsas"), "player", Text.of("abba jeezles"))).build();
-//        Sponge.getServer().getConsole().sendMessage(message);
-//        
         new CommandRegistrar().registerCommands(this, requestManager, mm);
     }
 }
