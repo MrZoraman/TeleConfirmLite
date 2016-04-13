@@ -31,7 +31,7 @@ public class TpcCommand implements CommandExecutor {
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         if(!(src instanceof Player)) {
-            src.sendMessage(mm.getMessage(Messages.PLAYER_ONLY));
+            src.sendMessage(mm.getMessage(Messages.PLAYER_ONLY).toText());
             return CommandResult.success();
         }
         
@@ -40,13 +40,13 @@ public class TpcCommand implements CommandExecutor {
         
         manager.request(sender, target, RequestType.GO_THERE);
         
-        Map<String, TextElement> msgArgs = ImmutableMap.of(
-                "sender", Text.of("mohm"),
-                "target", Text.of("sas")
+        Map<String, String> msgArgs = ImmutableMap.of(
+                "sender", sender.getName(),
+                "target", target.getName()
         );
         
-        sender.sendMessage(mm.getMessage(Messages.SENDER_REQUEST_TO).apply(msgArgs).build());
-        target.sendMessage(mm.getMessage(Messages.TARGET_REQUEST_TO).apply(msgArgs).build());
+        sender.sendMessage(mm.getMessage(Messages.SENDER_REQUEST_TO).apply(msgArgs).toText());
+        target.sendMessage(mm.getMessage(Messages.TARGET_REQUEST_TO).apply(msgArgs).toText());
         
         return CommandResult.success();
     }
