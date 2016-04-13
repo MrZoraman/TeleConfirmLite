@@ -74,7 +74,7 @@ public class TeleConfirmLite {
             ex.printStackTrace();
         }
         
-        commandRegistrar.registerCommands(this, requestManager, mm);
+        commandRegistrar.registerCommands(this);
     }
     
     public void reloadConfigs() throws IOException {
@@ -93,5 +93,6 @@ public class TeleConfirmLite {
             logger.info("Writing default messages.conf");
             messagesConf.save(rootNode);
         }
+        commandRegistrar.initCommands(requestManager, mm);
     }
 }

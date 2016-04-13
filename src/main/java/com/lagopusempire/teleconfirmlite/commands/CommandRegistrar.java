@@ -4,6 +4,8 @@ import com.lagopusempire.teleconfirmlite.RequestManager;
 import com.lagopusempire.teleconfirmlite.TeleConfirmLite;
 import com.lagopusempire.teleconfirmlite.commands.TpcCommand;
 import com.lagopusempire.teleconfirmlite.messages.MessageManager;
+import java.util.HashSet;
+import java.util.Set;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
@@ -15,17 +17,19 @@ import org.spongepowered.api.text.Text;
  */
 public class CommandRegistrar {
     
-    public void registerCommands(TeleConfirmLite plugin, RequestManager manager, MessageManager mm) {
-                
-        
-        CommandSpec tpcCmd = CommandSpec.builder()
+    private final Set<CommandBase> commands = new HashSet<CommandBase>();
+    
+    public void registerCommands(TeleConfirmLite plugin) {
+        CommandBase tpcCmd = new TpcCommand();
+        CommandSpec tpcCmdSpec = CommandSpec.builder()
                 .description(Text.of("Request to teleport to the specified player."))
                 .permission("tcl.tpc")
                 .arguments(
                     GenericArguments.onlyOne(GenericArguments.player(Text.of("playername"))))
-                .executor(new TpcCommand(manager, mm))
+                .executor(tpcCmd)
                 .build();
-        Sponge.getCommandManager().register(plugin, tpcCmd, "tpc", "tpa");
+        Sponge.getCommandManager().register(plugin, tpcCmdSpec, "tpc", "tpa");
+        commands.add(tpcCmd);
         
 //        CommandSpec tpchereCmd = CommandSpec.builder()
 //                .description(Text.of("Request that the specified player teleports to you."))
@@ -70,5 +74,11 @@ public class CommandRegistrar {
 //                .executor(null)
 //                .build();
 //        Sponge.getCommandManager().register(plugin, tpcbackCmd, "tpcback", "tpaback");
+    }
+    
+    public void initCommands(RequestManager manager, MessageManager mm) {
+        for(CommandBase cmd : commands) {
+            cmd.setManagers(manager, mm);
+        }
     }
 }

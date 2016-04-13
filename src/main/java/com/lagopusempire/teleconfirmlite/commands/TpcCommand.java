@@ -18,10 +18,6 @@ import org.spongepowered.api.entity.living.player.Player;
  */
 public class TpcCommand extends CommandBase {
     
-    TpcCommand(RequestManager manager, MessageManager mm) {
-        super(manager, mm);
-    }
-    
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         if(!(src instanceof Player)) {
