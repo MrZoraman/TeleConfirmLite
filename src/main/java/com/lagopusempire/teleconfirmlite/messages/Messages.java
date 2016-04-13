@@ -1,7 +1,9 @@
 package com.lagopusempire.teleconfirmlite.messages;
 
 public enum Messages {
-    PLAYER_ONLY("player_only");
+    PLAYER_ONLY("player_only"),
+    SENDER_REQUEST_TO("sender_request_to"),
+    TARGET_REQUEST_TO("target_request_to");
     
     private String key;
     
