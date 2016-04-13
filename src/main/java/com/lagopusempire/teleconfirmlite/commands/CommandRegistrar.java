@@ -16,6 +16,8 @@ import org.spongepowered.api.text.Text;
 public class CommandRegistrar {
     
     public void registerCommands(TeleConfirmLite plugin, RequestManager manager, MessageManager mm) {
+                
+        
         CommandSpec tpcCmd = CommandSpec.builder()
                 .description(Text.of("Request to teleport to the specified player."))
                 .permission("tcl.tpc")

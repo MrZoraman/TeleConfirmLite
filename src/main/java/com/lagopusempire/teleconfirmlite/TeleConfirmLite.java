@@ -62,32 +62,36 @@ public class TeleConfirmLite {
     private Path privateConfigDir;
     
     private final RequestManager requestManager = new RequestManager();
+    private final CommandRegistrar commandRegistrar = new CommandRegistrar();
     
     private MessageManager mm;
 
     @Listener
     public void onPreInit(GamePreInitializationEvent event) {
+        try {
+            reloadConfigs();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        
+        commandRegistrar.registerCommands(this, requestManager, mm);
+    }
+    
+    public void reloadConfigs() throws IOException {
         Path pluginDir = privateConfigDir.getParent();
         File pluginPath = pluginDir.toFile();
         File messagesConfFile = new File(pluginPath, "messages.conf");
         boolean writeMessagesFile = !messagesConfFile.exists();
         URL jarMessages = this.getClass().getResource("messages.conf");
-        
         ConfigurationLoader<CommentedConfigurationNode> messagesConf = HoconConfigurationLoader.builder()
                 .setPath(Paths.get(messagesConfFile.toURI()))
                 .setURL(jarMessages)
                 .build();
-        
-        try {
-            ConfigurationNode rootNode = messagesConf.load();
-            mm = new MessageManager(rootNode);
-            if(writeMessagesFile) {
-                logger.info("Writing default messages.conf");
-                messagesConf.save(rootNode);
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        ConfigurationNode rootNode = messagesConf.load();
+        mm = new MessageManager(rootNode);
+        if(writeMessagesFile) {
+            logger.info("Writing default messages.conf");
+            messagesConf.save(rootNode);
         }
-        new CommandRegistrar().registerCommands(this, requestManager, mm);
     }
 }
