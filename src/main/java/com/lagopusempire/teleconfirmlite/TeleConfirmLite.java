@@ -78,8 +78,6 @@ public class TeleConfirmLite {
     public boolean load() {
         boolean success = true;
         try {
-            System.out.println("reloading...");
-            
             ConfigurationNode rootNode;
             
             Path pluginDir = privateConfigDir.getParent();
@@ -88,10 +86,7 @@ public class TeleConfirmLite {
             Path messagesConfPath = Paths.get(messagesConfFile.toURI());
             if(!messagesConfFile.exists()) {
                 logger.info("Writing default messages.conf");
-//                ExportResource(TeleConfirmLite.class, "messages.conf");
-//            System.out.println("writeMessagesFile: " + writeMessagesFile);
                 URL jarMessages = this.getClass().getResource("messages.conf");
-                
                 ConfigurationLoader<CommentedConfigurationNode> messagesConf = HoconConfigurationLoader
                         .builder()
                         .setPath(messagesConfPath)
@@ -101,22 +96,18 @@ public class TeleConfirmLite {
                 rootNode = messagesConf.load();
                 messagesConf.save(rootNode);
             } else {
-                System.out.println("messagesConfPath: " + messagesConfPath);
                 ConfigurationLoader<CommentedConfigurationNode> messagesConf = HoconConfigurationLoader.builder()
                         .setPath(messagesConfPath)
                         .build();
                 rootNode = messagesConf.load();
             }
             
-            System.out.println("loading");
             mm = new MessageManager(rootNode);
             commandRegistrar.initCommands(requestManager, mm);
-            System.out.println("all has gone well");
         } catch (IOException e) {
             logger.error("Failed to load configuration files!", e);
             success = false;
         } finally {
-            System.out.println("done! success: " + success);
             commandRegistrar.setEnabled(success);
             commandRegistrar.initCommands(requestManager, mm);
             return success;
