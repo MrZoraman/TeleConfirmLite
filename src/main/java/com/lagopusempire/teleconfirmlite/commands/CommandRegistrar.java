@@ -20,6 +20,14 @@ public class CommandRegistrar {
     private final Set<CommandBase> commands = new HashSet<CommandBase>();
     
     public void registerCommands(TeleConfirmLite plugin) {
+        CommandSpec reloadCmdSpec = CommandSpec.builder()
+                .description(Text.of("Reloads TeleConfirmLite."))
+                .permission("tcl.reload")
+                .executor(new ReloadCommand(plugin))
+                .build();
+        Sponge.getCommandManager().register(plugin, reloadCmdSpec, "tpcreload", "tpareload");
+        
+        
         CommandBase tpcCmd = new TpcCommand();
         CommandSpec tpcCmdSpec = CommandSpec.builder()
                 .description(Text.of("Request to teleport to the specified player."))
