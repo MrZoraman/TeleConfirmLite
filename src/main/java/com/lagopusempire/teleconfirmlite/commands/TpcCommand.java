@@ -23,7 +23,7 @@ public class TpcCommand implements CommandExecutor {
     private final RequestManager manager;
     private final MessageManager mm;
     
-    public TpcCommand(RequestManager manager, MessageManager mm) {
+    TpcCommand(RequestManager manager, MessageManager mm) {
         this.manager = manager;
         this.mm = mm;
     }

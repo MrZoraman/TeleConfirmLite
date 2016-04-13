@@ -1,5 +1,7 @@
-package com.lagopusempire.teleconfirmlite;
+package com.lagopusempire.teleconfirmlite.commands;
 
+import com.lagopusempire.teleconfirmlite.RequestManager;
+import com.lagopusempire.teleconfirmlite.TeleConfirmLite;
 import com.lagopusempire.teleconfirmlite.commands.TpcCommand;
 import com.lagopusempire.teleconfirmlite.messages.MessageManager;
 import org.spongepowered.api.Sponge;

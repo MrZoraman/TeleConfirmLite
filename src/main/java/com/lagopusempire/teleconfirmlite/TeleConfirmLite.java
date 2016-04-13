@@ -1,5 +1,6 @@
 package com.lagopusempire.teleconfirmlite;
 
+import com.lagopusempire.teleconfirmlite.commands.CommandRegistrar;
 import com.google.common.collect.ImmutableMap;
 import com.google.inject.Inject;
 import com.lagopusempire.teleconfirmlite.messages.MessageManager;
