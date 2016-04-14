@@ -56,8 +56,8 @@ public class RequestManager {
         return new AcceptResultPack(AcceptResult.TARGET_OFFLINE, details.getTargetName());
     }
     
-    public void deny(UUID playerId) {
-        requests.remove(playerId);
+    public boolean deny(UUID playerId) {
+        return requests.remove(playerId) != null;
     }
     
     public Location getPriorLoc(UUID playerId) {
