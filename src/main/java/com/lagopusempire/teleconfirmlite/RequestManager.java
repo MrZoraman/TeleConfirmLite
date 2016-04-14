@@ -51,6 +51,7 @@ public class RequestManager {
         Optional<Player> targetPlayer = Sponge.getServer().getPlayer(target);
         if(targetPlayer.isPresent()) {
             data.setPriorLoc(player.getLocation());
+            data.setRequestDetails(null);
             return new AcceptResultPack(targetPlayer.get().getLocation(), details.getTargetName());
         }
         return new AcceptResultPack(AcceptResult.TARGET_OFFLINE, details.getTargetName());
