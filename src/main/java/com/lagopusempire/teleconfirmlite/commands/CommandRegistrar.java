@@ -39,14 +39,16 @@ public class CommandRegistrar {
         Sponge.getCommandManager().register(plugin, tpcCmdSpec, "tpc", "tpa");
         commands.add(tpcCmd);
         
-//        CommandSpec tpchereCmd = CommandSpec.builder()
-//                .description(Text.of("Request that the specified player teleports to you."))
-//                .permission("tcl.tpchere")
-//                .arguments(
-//                    GenericArguments.onlyOne(GenericArguments.player(Text.of("playername"))))
-//                .executor(null)
-//                .build();
-//        Sponge.getCommandManager().register(plugin, tpchereCmd, "tpchere", "tpahere");
+        CommandBase tpchereCmd = new TpchereCommand();
+        CommandSpec tpchereCmdSpec = CommandSpec.builder()
+                .description(Text.of("Request that the specified player teleports to you."))
+                .permission("tcl.tpchere")
+                .arguments(
+                    GenericArguments.onlyOne(GenericArguments.player(Text.of("playername"))))
+                .executor(tpchereCmd)
+                .build();
+        Sponge.getCommandManager().register(plugin, tpchereCmdSpec, "tpchere", "tpahere");
+        commands.add(tpchereCmd);
 //        
 //        CommandSpec tpcaCmd = CommandSpec.builder()
 //                .description(Text.of("Accepts a teleport request."))
