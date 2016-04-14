@@ -58,13 +58,15 @@ public class CommandRegistrar {
                 .build();
         Sponge.getCommandManager().register(plugin, tpcaCmdSpec, "tpca", "tpaccept", "tpyes");
         commands.add(tpcaCmd);
-//        
-//        CommandSpec tpcdCmd = CommandSpec.builder()
-//                .description(Text.of("Rejects a teleport request."))
-//                .permission("tcl.tpcd")
-//                .executor(null)
-//                .build();
-//        Sponge.getCommandManager().register(plugin, tpcdCmd, "tpcd", "tpdeny", "tpno");
+        
+        CommandBase tpcdCmd = new TpcdCommand();
+        CommandSpec tpcdCmdSpec = CommandSpec.builder()
+                .description(Text.of("Rejects a teleport request."))
+                .permission("tcl.tpcd")
+                .executor(tpcdCmd)
+                .build();
+        Sponge.getCommandManager().register(plugin, tpcdCmdSpec, "tpcd", "tpdeny", "tpno");
+        commands.add(tpcdCmd);
 //        
 //        CommandSpec tptoggleCmd = CommandSpec.builder()
 //                .description(Text.of("Toggle teleportation,"))

@@ -7,7 +7,8 @@ public enum Messages {
     SENDER_REQUEST_HERE("sender_request_here"),
     TARGET_REQUEST_HERE("target_request_here"),
     NO_PENDING_REQUESTS("no_pending_request"),
-    TARGET_OFFLINE("target_offline");
+    TARGET_OFFLINE("target_offline"),
+    REQUEST_DENIED("request_denied");
     
     private String key;
     

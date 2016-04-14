@@ -57,8 +57,13 @@ public class RequestManager {
         return new AcceptResultPack(AcceptResult.TARGET_OFFLINE, details.getTargetName());
     }
     
-    public boolean deny(UUID playerId) {
-        return requests.remove(playerId) != null;
+    public RequestDetails deny(UUID playerId) {
+        TclPlayerData data = requests.remove(playerId);
+        if(data == null) {
+            return null;
+        }
+        
+        return data.getRequestDetails();
     }
     
     public Location getPriorLoc(UUID playerId) {
