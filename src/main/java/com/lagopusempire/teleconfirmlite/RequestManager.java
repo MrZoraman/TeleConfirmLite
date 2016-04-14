@@ -27,7 +27,7 @@ public class RequestManager {
     
     public void request(Player player, Player target, RequestType type) {
         //these details are constructed from the target's prespective
-        RequestDetails details = new RequestDetails(player.getUniqueId(), type.reverse());
+        RequestDetails details = new RequestDetails(player.getUniqueId(), player.getName(), type.reverse());
         TclPlayerData data = getPlayerData(target.getUniqueId());
         data.setRequestDetails(details);
     }
@@ -45,15 +45,15 @@ public class RequestManager {
         TclPlayerData data = getPlayerData(playerId);
         RequestDetails details = data.getRequestDetails();
         if(details == null) {
-            return new AcceptResultPack(AcceptResult.NO_PENDING_REQUEST);
+            return new AcceptResultPack(AcceptResult.NO_PENDING_REQUEST, "(no target)");
         }
         UUID target = details.getTarget();
         Optional<Player> targetPlayer = Sponge.getServer().getPlayer(target);
         if(targetPlayer.isPresent()) {
             data.setPriorLoc(player.getLocation());
-            return new AcceptResultPack(targetPlayer.get().getLocation());
+            return new AcceptResultPack(targetPlayer.get().getLocation(), details.getTargetName());
         }
-        return new AcceptResultPack(AcceptResult.TARGET_OFFLINE);
+        return new AcceptResultPack(AcceptResult.TARGET_OFFLINE, details.getTargetName());
     }
     
     public void deny(UUID playerId) {

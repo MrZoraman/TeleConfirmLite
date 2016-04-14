@@ -13,11 +13,13 @@ import java.util.UUID;
  */
 public class RequestDetails {
     private final UUID target;
+    private final String targetName;
     private final RequestType type;
     
-    public RequestDetails(UUID target, RequestType type) {
+    public RequestDetails(UUID target, String targetName, RequestType type) {
         this.target = target;
         this.type = type;
+        this.targetName = targetName;
     }
     
     public UUID getTarget() {
@@ -26,5 +28,9 @@ public class RequestDetails {
     
     public RequestType getType() {
         return type;
+    }
+    
+    public String getTargetName() {
+        return targetName;
     }
 }
