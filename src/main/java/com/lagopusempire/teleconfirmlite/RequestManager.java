@@ -25,11 +25,15 @@ public class RequestManager {
         return data;
     }
     
-    public void request(Player player, Player target, RequestType type) {
+    public boolean request(Player player, Player target, RequestType type) {
         //these details are constructed from the target's prespective
         RequestDetails details = new RequestDetails(player.getUniqueId(), player.getName(), type.reverse());
         TclPlayerData data = getPlayerData(target.getUniqueId());
+        if(data.getRequestDetails() != null) {
+            return false;
+        }
         data.setRequestDetails(details);
+        return true;
     }
     
 //    public boolean hasPendingRequest(UUID playerId) {

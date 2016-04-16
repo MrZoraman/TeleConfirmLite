@@ -22,15 +22,17 @@ public class TpchereCommand extends CommandBase {
         Player sender = (Player) src;
         Player target = args.<Player>getOne("playername").get();
         
-        getManager().request(sender, target, RequestType.COME_HERE);
-        
         Map<String, String> msgArgs = ImmutableMap.of(
                 "sender", sender.getName(),
                 "target", target.getName()
         );
         
-        sender.sendMessage(getMessageManager().getMessage(Messages.SENDER_REQUEST_HERE).apply(msgArgs).toText());
-        target.sendMessage(getMessageManager().getMessage(Messages.TARGET_REQUEST_HERE).apply(msgArgs).toText());
+        boolean success = getManager().request(sender, target, RequestType.COME_HERE);
+        Messages senderMessage = success ? Messages.SENDER_REQUEST_HERE : Messages.SENDER_ALREADY_HAS_REQUEST;
+        Messages targetMessage = success ? Messages.TARGET_REQUEST_HERE : Messages.TARGET_ALREADY_HAS_REQUEST;
+        
+        sender.sendMessage(getMessageManager().getMessage(senderMessage).apply(msgArgs).toText());
+        target.sendMessage(getMessageManager().getMessage(targetMessage).apply(msgArgs).toText());
         
         return CommandResult.success();
     }

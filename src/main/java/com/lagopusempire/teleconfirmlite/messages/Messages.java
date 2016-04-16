@@ -10,7 +10,9 @@ public enum Messages {
     TARGET_OFFLINE("target_offline"),
     SENDER_REQUEST_DENIED("sender_request_denied"),
     TARGET_REQUEST_DENIED("target_request_denied"),
-    REQUEST_CLEARED("reques_cleared");
+    REQUEST_CLEARED("reques_cleared"),
+    TARGET_ALREADY_HAS_REQUEST("target_already_has_request"),
+    SENDER_ALREADY_HAS_REQUEST("sender_already_has_request");
     
     private String key;
     
