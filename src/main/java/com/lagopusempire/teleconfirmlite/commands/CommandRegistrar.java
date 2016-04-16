@@ -2,7 +2,6 @@ package com.lagopusempire.teleconfirmlite.commands;
 
 import com.lagopusempire.teleconfirmlite.RequestManager;
 import com.lagopusempire.teleconfirmlite.TeleConfirmLite;
-import com.lagopusempire.teleconfirmlite.commands.TpcCommand;
 import com.lagopusempire.teleconfirmlite.messages.MessageManager;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +16,7 @@ import org.spongepowered.api.text.Text;
  */
 public class CommandRegistrar {
     
-    private final Set<CommandBase> commands = new HashSet<CommandBase>();
+    private final Set<CommandBase> commands = new HashSet<>();
     
     public void registerCommands(TeleConfirmLite plugin) {
         CommandSpec reloadCmdSpec = CommandSpec.builder()
