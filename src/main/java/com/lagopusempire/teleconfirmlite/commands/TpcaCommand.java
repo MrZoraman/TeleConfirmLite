@@ -20,8 +20,8 @@ public class TpcaCommand extends CommandBase {
             return CommandResult.success();
         }
         
-        Player sender = (Player) src;
-        AcceptResultPack pack = getManager().accept(sender);
+        Player player = (Player) src;
+        AcceptResultPack pack = getManager().getRequest(player);
         
         Map<String, String> msgArgs = ImmutableMap.of(
                 "target", pack.getTargetName()
@@ -29,14 +29,15 @@ public class TpcaCommand extends CommandBase {
         
         switch(pack.getResult()) {
             case NO_PENDING_REQUEST:
-                sender.sendMessage(getMessageManager().getMessage(Messages.NO_PENDING_REQUESTS).toText());
+                player.sendMessage(getMessageManager().getMessage(Messages.NO_PENDING_REQUESTS).toText());
                 break;
             case TARGET_OFFLINE:
-                sender.sendMessage(getMessageManager().getMessage(Messages.TARGET_OFFLINE).apply(msgArgs).toText());
+                player.sendMessage(getMessageManager().getMessage(Messages.TARGET_OFFLINE).apply(msgArgs).toText());
                 break;
             case SUCCESS:
                 Location loc = pack.getLoc();
-                sender.setLocation(loc);
+                player.setLocation(loc);
+                getManager().clearRequest(player.getUniqueId());
         }
         
         return CommandResult.success();

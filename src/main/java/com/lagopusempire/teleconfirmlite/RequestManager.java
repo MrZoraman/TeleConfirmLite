@@ -44,7 +44,7 @@ public class RequestManager {
 //        return data.getRequestDetails() == null;
 //    }
     
-    public AcceptResultPack accept(Player player) {
+    public AcceptResultPack getRequest(Player player) {
         UUID playerId = player.getUniqueId();
         TclPlayerData data = getPlayerData(playerId);
         RequestDetails details = data.getRequestDetails();
@@ -61,13 +61,15 @@ public class RequestManager {
         return new AcceptResultPack(AcceptResult.TARGET_OFFLINE, details.getTargetName());
     }
     
-    public RequestDetails deny(UUID playerId) {
-        TclPlayerData data = requests.remove(playerId);
+    public RequestDetails clearRequest(UUID playerId) {
+        TclPlayerData data = getPlayerData(playerId);
         if(data == null) {
             return null;
         }
         
-        return data.getRequestDetails();
+        RequestDetails details = data.getRequestDetails();
+        data.setRequestDetails(null);
+        return details;
     }
     
     public Location getPriorLoc(UUID playerId) {
