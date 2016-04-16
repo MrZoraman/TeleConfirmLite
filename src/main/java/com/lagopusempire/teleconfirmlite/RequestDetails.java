@@ -16,7 +16,7 @@ public class RequestDetails {
     private final String targetName;
     private final RequestType type;
     
-    public RequestDetails(UUID target, String targetName, RequestType type) {
+    RequestDetails(UUID target, String targetName, RequestType type) {
         this.target = target;
         this.type = type;
         this.targetName = targetName;

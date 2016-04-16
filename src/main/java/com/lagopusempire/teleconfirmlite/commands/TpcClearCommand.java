@@ -21,7 +21,7 @@ public class TpcClearCommand extends CommandBase {
         
         Player sender = (Player) src;
         
-        RequestDetails details = getManager().clearRequest(sender.getUniqueId());
+        RequestDetails details = getManager().clearRequestDetails(sender.getUniqueId());
         if(details == null) {
             sender.sendMessage(getMessageManager().getMessage(Messages.NO_PENDING_REQUESTS).toText());
             return CommandResult.success();
