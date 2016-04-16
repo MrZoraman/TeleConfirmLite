@@ -32,7 +32,7 @@ public class TpcClearCommand extends CommandBase {
             "sender", sender.getName()
         );
         
-        sender.sendMessage(getMessageManager().getMessage(Messages.SENDER_REQUEST_DENIED).apply(msgArgs).toText());
+        sender.sendMessage(getMessageManager().getMessage(Messages.REQUEST_CLEARED).apply(msgArgs).toText());
         
         return CommandResult.success();
     }
