@@ -16,7 +16,7 @@ public enum Permissions {
         this.node = node;
     }
     
-    String getNode() {
+    public String getNode() {
         return node;
     }
 }

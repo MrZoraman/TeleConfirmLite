@@ -1,6 +1,7 @@
 package com.lagopusempire.teleconfirmlite.commands;
 
 import com.google.common.collect.ImmutableMap;
+import com.lagopusempire.teleconfirmlite.Permissions;
 import com.lagopusempire.teleconfirmlite.RequestType;
 import com.lagopusempire.teleconfirmlite.TeleConfirmLite;
 import com.lagopusempire.teleconfirmlite.messages.Messages;
@@ -21,7 +22,7 @@ public class TpchereCommand extends CommandBase {
     protected void register(TeleConfirmLite plugin, CommandManager commandManager) {
         CommandSpec cmdSpec = CommandSpec.builder()
                 .description(Text.of("Request that the specified player teleports to you."))
-                .permission("tcl.tpchere")
+                .permission(Permissions.TPCHERE.getNode())
                 .arguments(
                     GenericArguments.onlyOne(GenericArguments.player(Text.of("playername"))))
                 .executor(this)

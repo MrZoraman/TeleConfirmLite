@@ -1,5 +1,6 @@
 package com.lagopusempire.teleconfirmlite.commands;
 
+import com.lagopusempire.teleconfirmlite.Permissions;
 import com.lagopusempire.teleconfirmlite.TeleConfirmLite;
 import com.lagopusempire.teleconfirmlite.messages.Messages;
 import org.spongepowered.api.command.CommandException;
@@ -17,7 +18,7 @@ public class TpcToggleCmd extends CommandBase {
     protected void register(TeleConfirmLite plugin, CommandManager commandManager) {
         CommandSpec cmdSpec = CommandSpec.builder()
                 .description(Text.of("Toggle teleportation,"))
-                .permission("tcl.tpctoggle")
+                .permission(Permissions.TOGGLE.getNode())
                 .executor(this)
                 .build();
         commandManager.register(plugin, cmdSpec, "tpctoggle", "tptoggle");

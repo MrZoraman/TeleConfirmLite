@@ -1,6 +1,7 @@
 package com.lagopusempire.teleconfirmlite.commands;
 
 import com.google.common.collect.ImmutableMap;
+import com.lagopusempire.teleconfirmlite.Permissions;
 import com.lagopusempire.teleconfirmlite.RequestDetails;
 import com.lagopusempire.teleconfirmlite.TeleConfirmLite;
 import com.lagopusempire.teleconfirmlite.messages.Messages;
@@ -22,7 +23,7 @@ public class TpcaCommand extends CommandBase {
     protected void register(TeleConfirmLite plugin, CommandManager commandManager) {
          CommandSpec cmdSpec = CommandSpec.builder()
                 .description(Text.of("Accepts a teleport request."))
-                .permission("tcl.tpca")
+                .permission(Permissions.TPCA.getNode())
                 .executor(this)
                 .build();
          commandManager.register(plugin, cmdSpec, "tpca", "tpaccept", "tpyes");

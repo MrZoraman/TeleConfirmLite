@@ -1,5 +1,6 @@
 package com.lagopusempire.teleconfirmlite.commands;
 
+import com.lagopusempire.teleconfirmlite.Permissions;
 import com.lagopusempire.teleconfirmlite.TeleConfirmLite;
 import com.lagopusempire.teleconfirmlite.messages.Messages;
 import org.spongepowered.api.command.CommandException;
@@ -18,7 +19,7 @@ public class TpcbackCommand extends CommandBase {
     protected void register(TeleConfirmLite plugin, CommandManager commandManager) {
         CommandSpec cmdSpec = CommandSpec.builder()
                 .description(Text.of("Returns you to your previous location."))
-                .permission("tcl.tpcback")
+                .permission(Permissions.BACK.getNode())
                 .executor(this)
                 .build();
         commandManager.register(plugin, cmdSpec, "tpcback", "tpaback");

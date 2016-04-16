@@ -1,6 +1,7 @@
 package com.lagopusempire.teleconfirmlite.commands;
 
 import com.google.common.collect.ImmutableMap;
+import com.lagopusempire.teleconfirmlite.Permissions;
 import com.lagopusempire.teleconfirmlite.RequestType;
 import com.lagopusempire.teleconfirmlite.TeleConfirmLite;
 import com.lagopusempire.teleconfirmlite.messages.Messages;
@@ -25,7 +26,7 @@ public class TpcCommand extends CommandBase {
     protected void register(TeleConfirmLite plugin, CommandManager commandManager) {
         CommandSpec cmdSpec = CommandSpec.builder()
                 .description(Text.of("Request to teleport to the specified player."))
-                .permission("tcl.tpc")
+                .permission(Permissions.TPC.getNode())
                 .arguments(
                     GenericArguments.onlyOne(GenericArguments.player(Text.of("playername"))))
                 .executor(this)
