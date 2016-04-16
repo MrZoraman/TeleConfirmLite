@@ -27,7 +27,7 @@ public class TpchereCommand extends CommandBase {
                 "target", target.getName()
         );
         
-        if(getManager().getRequestDetails(sender.getUniqueId()) != null) {
+        if(getManager().getRequestDetails(target.getUniqueId()) != null) {
             sender.sendMessage(getMessageManager().getMessage(Messages.SENDER_ALREADY_HAS_REQUEST).apply(msgArgs).toText());
             target.sendMessage(getMessageManager().getMessage(Messages.TARGET_ALREADY_HAS_REQUEST).apply(msgArgs).toText());
         } else {
