@@ -44,13 +44,13 @@ public class TeleConfirmLite {
     private Path privateConfigDir;
 
     private final RequestManager requestManager = new RequestManager();
-    private final CommandRegistrar commandRegistrar = new CommandRegistrar();
-
+    
+    private CommandRegistrar commandRegistrar;
     private MessageManager mm;
 
     @Listener
     public void onPreInit(GamePreInitializationEvent event) {
-        commandRegistrar.registerCommands(this);
+        commandRegistrar = new CommandRegistrar(this);
         load();
     }
 

@@ -1,8 +1,10 @@
 package com.lagopusempire.teleconfirmlite.commands;
 
 import com.lagopusempire.teleconfirmlite.RequestManager;
+import com.lagopusempire.teleconfirmlite.TeleConfirmLite;
 import com.lagopusempire.teleconfirmlite.messages.MessageManager;
 import org.spongepowered.api.command.CommandException;
+import org.spongepowered.api.command.CommandManager;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
@@ -34,6 +36,7 @@ public abstract class CommandBase implements CommandExecutor {
     }
     
     protected abstract CommandResult executeCommand(CommandSource src, CommandContext args) throws CommandException;
+    protected abstract void register(TeleConfirmLite plugin, CommandManager commandManager);
     
     void setManagers(RequestManager manager, MessageManager mm) {
         this.manager = manager;

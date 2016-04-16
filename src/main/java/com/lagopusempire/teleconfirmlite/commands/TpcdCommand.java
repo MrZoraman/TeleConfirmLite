@@ -2,17 +2,31 @@ package com.lagopusempire.teleconfirmlite.commands;
 
 import com.google.common.collect.ImmutableMap;
 import com.lagopusempire.teleconfirmlite.RequestDetails;
+import com.lagopusempire.teleconfirmlite.TeleConfirmLite;
 import com.lagopusempire.teleconfirmlite.messages.Messages;
 import java.util.Map;
 import java.util.Optional;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandException;
+import org.spongepowered.api.command.CommandManager;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
+import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.text.Text;
 
 public class TpcdCommand extends CommandBase {
+
+    @Override
+    protected void register(TeleConfirmLite plugin, CommandManager commandManager) {
+        CommandSpec cmdSpec = CommandSpec.builder()
+                .description(Text.of("Rejects a teleport request."))
+                .permission("tcl.tpcd")
+                .executor(this)
+                .build();
+        commandManager.register(plugin, cmdSpec, "tpcd", "tpdeny", "tpno");
+    }
 
     @Override
     protected CommandResult executeCommand(CommandSource src, CommandContext args) throws CommandException {

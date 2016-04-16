@@ -2,19 +2,36 @@ package com.lagopusempire.teleconfirmlite.commands;
 
 import com.google.common.collect.ImmutableMap;
 import com.lagopusempire.teleconfirmlite.RequestType;
+import com.lagopusempire.teleconfirmlite.TeleConfirmLite;
 import com.lagopusempire.teleconfirmlite.messages.Messages;
 import java.util.Map;
 import org.spongepowered.api.command.CommandException;
+import org.spongepowered.api.command.CommandManager;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
+import org.spongepowered.api.command.args.GenericArguments;
+import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.text.Text;
 
 /**
  *
  * @author MrZoraman
  */
 public class TpcCommand extends CommandBase {
+
+    @Override
+    protected void register(TeleConfirmLite plugin, CommandManager commandManager) {
+        CommandSpec cmdSpec = CommandSpec.builder()
+                .description(Text.of("Request to teleport to the specified player."))
+                .permission("tcl.tpc")
+                .arguments(
+                    GenericArguments.onlyOne(GenericArguments.player(Text.of("playername"))))
+                .executor(this)
+                .build();
+        commandManager.register(plugin, cmdSpec, "tpc", "tpa");
+    }
     
     @Override
     public CommandResult executeCommand(CommandSource src, CommandContext args) throws CommandException {
