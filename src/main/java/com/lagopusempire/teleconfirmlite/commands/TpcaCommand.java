@@ -53,6 +53,8 @@ public class TpcaCommand extends CommandBase {
                 sender.setLocation(target.getLocation());
         }
         
+        getManager().clearRequestDetails(sender.getUniqueId());
+        
         return CommandResult.success();
     }
     
