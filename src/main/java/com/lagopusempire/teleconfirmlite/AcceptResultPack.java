@@ -1,16 +1,18 @@
 package com.lagopusempire.teleconfirmlite;
 
-import org.spongepowered.api.world.Location;
+import org.spongepowered.api.entity.living.player.Player;
 
 public class AcceptResultPack {
     private final AcceptResult result;
-    private final Location loc;
+    private final Player target;
     private final String targetName;
+    private final RequestType type;
     
-    public AcceptResultPack(Location loc, String targetName) {
+    public AcceptResultPack(RequestType type, Player target) {
         this.result = AcceptResult.SUCCESS;
-        this.loc = loc;
-        this.targetName = targetName;
+        this.type = type;
+        this.target = target;
+        this.targetName = target.getName();
     }
     
     public AcceptResultPack(AcceptResult result, String targetName) {
@@ -19,7 +21,8 @@ public class AcceptResultPack {
         }
         
         this.result = result;
-        this.loc = null;
+        this.type = null;
+        this.target = null;
         this.targetName = targetName;
     }
 
@@ -27,11 +30,15 @@ public class AcceptResultPack {
         return result;
     }
 
-    public Location getLoc() {
-        return loc;
+    public RequestType getType() {
+        return type;
     }
     
     public String getTargetName() {
         return targetName;
+    }
+    
+    public Player getTarget() {
+        return target;
     }
 }
