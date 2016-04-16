@@ -84,13 +84,15 @@ public class CommandRegistrar {
                 .build();
         Sponge.getCommandManager().register(plugin, tpcclearCmdSpec, "tpcclear", "tpaclear", "tpclear");
         commands.add(tpcclearCmd);
-//        
-//        CommandSpec tpcbackCmd = CommandSpec.builder()
-//                .description(Text.of("Returns you to your previous location."))
-//                .permission("tcl.tpcback")
-//                .executor(null)
-//                .build();
-//        Sponge.getCommandManager().register(plugin, tpcbackCmd, "tpcback", "tpaback");
+        
+        CommandBase tpcbackCmd = new TpcbackCommand();
+        CommandSpec tpcbackCmdSpec = CommandSpec.builder()
+                .description(Text.of("Returns you to your previous location."))
+                .permission("tcl.tpcback")
+                .executor(tpcbackCmd)
+                .build();
+        Sponge.getCommandManager().register(plugin, tpcbackCmdSpec, "tpcback", "tpaback");
+        commands.add(tpcbackCmd);
     }
     
     public void initCommands(RequestManager manager, MessageManager mm) {

@@ -15,7 +15,8 @@ public enum Messages {
     SENDER_ALREADY_HAS_REQUEST("sender_already_has_request"),
     SENDER_NOW_ACCEPTING_REQUESTS("sender_now_accepting_requests"),
     SENDER_NO_LONGER_ACCEPTING_REQUESTS("sender_no_longer_accepting_requests"),
-    TARGET_NOT_ACCEPTING_REQUESTS("target_not_accepting_requests");
+    TARGET_NOT_ACCEPTING_REQUESTS("target_not_accepting_requests"),
+    NO_PRIOR_LOC("no_prior_loc");
     
     private String key;
     
