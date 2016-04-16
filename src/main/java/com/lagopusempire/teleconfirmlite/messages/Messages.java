@@ -9,7 +9,8 @@ public enum Messages {
     NO_PENDING_REQUESTS("no_pending_request"),
     TARGET_OFFLINE("target_offline"),
     SENDER_REQUEST_DENIED("sender_request_denied"),
-    TARGET_REQUEST_DENIED("target_request_denied");
+    TARGET_REQUEST_DENIED("target_request_denied"),
+    REQUEST_CLEARED("reques_cleared");
     
     private String key;
     

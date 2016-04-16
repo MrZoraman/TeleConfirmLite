@@ -67,20 +67,22 @@ public class CommandRegistrar {
                 .build();
         Sponge.getCommandManager().register(plugin, tpcdCmdSpec, "tpcd", "tpdeny", "tpno");
         commands.add(tpcdCmd);
-//        
+        
 //        CommandSpec tptoggleCmd = CommandSpec.builder()
 //                .description(Text.of("Toggle teleportation,"))
 //                .permission("tcl.tpctoggle")
 //                .executor(null)
 //                .build();
 //        Sponge.getCommandManager().register(plugin, tptoggleCmd, "tpctoggle", "tptoggle");
-//        
-//        CommandSpec tpcclearCmd = CommandSpec.builder()
-//                .description(Text.of("Removes a pending request."))
-//                .permission("tcl.tpcclear")
-//                .executor(null)
-//                .build();
-//        Sponge.getCommandManager().register(plugin, tpcclearCmd, "tpcclear", "tpaclear", "tpclear");
+        
+        CommandBase tpcclearCmd = new TpcClearCommand();
+        CommandSpec tpcclearCmdSpec = CommandSpec.builder()
+                .description(Text.of("Removes a pending request."))
+                .permission("tcl.tpcclear")
+                .executor(tpcclearCmd)
+                .build();
+        Sponge.getCommandManager().register(plugin, tpcclearCmdSpec, "tpcclear", "tpaclear", "tpclear");
+        commands.add(tpcclearCmd);
 //        
 //        CommandSpec tpcbackCmd = CommandSpec.builder()
 //                .description(Text.of("Returns you to your previous location."))
