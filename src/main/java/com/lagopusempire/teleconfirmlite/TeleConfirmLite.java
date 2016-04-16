@@ -55,7 +55,6 @@ public class TeleConfirmLite {
     }
 
     public boolean load() {
-        boolean success = true;
         try {
             ConfigurationNode rootNode;
             
@@ -83,13 +82,13 @@ public class TeleConfirmLite {
             
             mm = new MessageManager(rootNode);
             commandRegistrar.initCommands(requestManager, mm);
+            return true;
         } catch (IOException e) {
             logger.error("Failed to load configuration files!", e);
-            success = false;
+            return false;
         } finally {
-            commandRegistrar.setEnabled(success);
+            commandRegistrar.setEnabled(false);
             commandRegistrar.initCommands(requestManager, mm);
-            return success;
         }
     }
 }
