@@ -1,16 +1,17 @@
 package com.lagopusempire.teleconfirmlite.commands;
 
 import com.google.common.collect.ImmutableMap;
-import com.lagopusempire.teleconfirmlite.AcceptResultPack;
+import com.lagopusempire.teleconfirmlite.RequestDetails;
 import com.lagopusempire.teleconfirmlite.RequestType;
 import com.lagopusempire.teleconfirmlite.messages.Messages;
 import java.util.Map;
+import java.util.Optional;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.world.Location;
 
 public class TpcaCommand extends CommandBase {
 
@@ -22,31 +23,34 @@ public class TpcaCommand extends CommandBase {
         }
         
         Player sender = (Player) src;
-        AcceptResultPack pack = getManager().accept(sender);
+        
+        RequestDetails details = getManager().getRequestDetails(sender.getUniqueId());
+        
+        if(details == null) {
+            sender.sendMessage(getMessageManager().getMessage(Messages.NO_PENDING_REQUESTS).toText());
+            return CommandResult.success();
+        }
         
         Map<String, String> msgArgs = ImmutableMap.of(
-                "target", pack.getTargetName()
+                "target", details.getTargetName()
         );
         
-        switch(pack.getResult()) {
-            case NO_PENDING_REQUEST:
-                sender.sendMessage(getMessageManager().getMessage(Messages.NO_PENDING_REQUESTS).toText());
+        Optional<Player> targetOpt = Sponge.getServer().getPlayer(details.getTarget());
+        if(!targetOpt.isPresent()) {
+            sender.sendMessage(getMessageManager().getMessage(Messages.TARGET_OFFLINE).apply(msgArgs).toText());
+            return CommandResult.success();
+        }
+        
+        Player target = targetOpt.get();
+        
+        switch(details.getType()) {
+            case COME_HERE:
+                getManager().setPriorLocation(target);
+                target.setLocation(sender.getLocation());
                 break;
-            case TARGET_OFFLINE:
-                sender.sendMessage(getMessageManager().getMessage(Messages.TARGET_OFFLINE).apply(msgArgs).toText());
-                break;
-            case SUCCESS:
-                Player target = pack.getTarget();
-                RequestType type = pack.getType();
-                switch(type) {
-                    case COME_HERE:
-                        getManager().setPriorLocation(target);
-                        target.setLocation(sender.getLocation());
-                        break;
-                    case GO_THERE:
-                        getManager().setPriorLocation(sender);
-                        sender.setLocation(target.getLocation());
-                }
+            case GO_THERE:
+                getManager().setPriorLocation(sender);
+                sender.setLocation(target.getLocation());
         }
         
         return CommandResult.success();

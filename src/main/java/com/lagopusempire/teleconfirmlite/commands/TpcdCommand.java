@@ -23,7 +23,8 @@ public class TpcdCommand extends CommandBase {
         
         Player sender = (Player) src;
         
-        RequestDetails details = getManager().clearRequestDetails(sender.getUniqueId());
+        RequestDetails details = getManager().getRequestDetails(sender.getUniqueId());
+        
         if(details == null) {
             sender.sendMessage(getMessageManager().getMessage(Messages.NO_PENDING_REQUESTS).toText());
             return CommandResult.success();

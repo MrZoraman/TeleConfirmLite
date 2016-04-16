@@ -27,14 +27,16 @@ public class TpchereCommand extends CommandBase {
                 "target", target.getName()
         );
         
-        boolean success = getManager().request(sender, target, RequestType.COME_HERE);
-        Messages senderMessage = success ? Messages.SENDER_REQUEST_HERE : Messages.SENDER_ALREADY_HAS_REQUEST;
-        Messages targetMessage = success ? Messages.TARGET_REQUEST_HERE : Messages.TARGET_ALREADY_HAS_REQUEST;
-        
-        sender.sendMessage(getMessageManager().getMessage(senderMessage).apply(msgArgs).toText());
-        target.sendMessage(getMessageManager().getMessage(targetMessage).apply(msgArgs).toText());
+        if(getManager().getRequestDetails(sender.getUniqueId()) != null) {
+            sender.sendMessage(getMessageManager().getMessage(Messages.SENDER_ALREADY_HAS_REQUEST).toText());
+            target.sendMessage(getMessageManager().getMessage(Messages.TARGET_ALREADY_HAS_REQUEST).toText());
+        } else {
+            getManager().request(sender, target.getUniqueId(), RequestType.COME_HERE);
+            
+            sender.sendMessage(getMessageManager().getMessage(Messages.SENDER_REQUEST_HERE).toText());
+            target.sendMessage(getMessageManager().getMessage(Messages.SENDER_REQUEST_HERE).toText());
+        }
         
         return CommandResult.success();
     }
-    
 }
