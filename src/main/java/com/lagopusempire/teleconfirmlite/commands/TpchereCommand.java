@@ -23,6 +23,8 @@ public class TpchereCommand extends CommandBase {
         CommandSpec cmdSpec = CommandSpec.builder()
                 .description(Text.of("Request that the specified player teleports to you."))
                 .permission(Permissions.TPCHERE.getNode())
+                .permission(Permissions.USER.getNode())
+                .permission(Permissions.ALL.getNode())
                 .arguments(
                     GenericArguments.onlyOne(GenericArguments.player(Text.of("playername"))))
                 .executor(this)

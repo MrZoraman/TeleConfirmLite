@@ -8,7 +8,10 @@ public enum Permissions {
     TPCD("tcl.tpcd"),
     TOGGLE("tcl.tpctoggle"),
     CLEAR("tcl.tpcclear"),
-    BACK("tcl.tpcback");
+    BACK("tcl.tpcback"),
+    
+    USER("tcl.user"),
+    ALL("tcl.*");
     
     private String node;
     

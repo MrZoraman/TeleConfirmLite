@@ -20,6 +20,8 @@ public class TpcbackCommand extends CommandBase {
         CommandSpec cmdSpec = CommandSpec.builder()
                 .description(Text.of("Returns you to your previous location."))
                 .permission(Permissions.BACK.getNode())
+                .permission(Permissions.USER.getNode())
+                .permission(Permissions.ALL.getNode())
                 .executor(this)
                 .build();
         commandManager.register(plugin, cmdSpec, "tpcback", "tpaback");

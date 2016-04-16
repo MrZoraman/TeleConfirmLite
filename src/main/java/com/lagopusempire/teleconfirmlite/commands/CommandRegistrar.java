@@ -1,5 +1,6 @@
 package com.lagopusempire.teleconfirmlite.commands;
 
+import com.lagopusempire.teleconfirmlite.Permissions;
 import com.lagopusempire.teleconfirmlite.RequestManager;
 import com.lagopusempire.teleconfirmlite.TeleConfirmLite;
 import com.lagopusempire.teleconfirmlite.messages.MessageManager;
@@ -16,7 +17,8 @@ public class CommandRegistrar {
     public CommandRegistrar(TeleConfirmLite plugin) {
         CommandSpec reloadCmdSpec = CommandSpec.builder()
                 .description(Text.of("Reloads TeleConfirmLite."))
-                .permission("tcl.reload")
+                .permission(Permissions.RELOAD.getNode())
+                .permission(Permissions.ALL.getNode())
                 .executor(new ReloadCommand(plugin))
                 .build();
         Sponge.getCommandManager().register(plugin, reloadCmdSpec, "tpcreload", "tpareload");
