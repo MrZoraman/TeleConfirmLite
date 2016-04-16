@@ -32,13 +32,13 @@ public class TpcCommand extends CommandBase {
         );
         
         if(getManager().getRequestDetails(sender.getUniqueId()) != null) {
-            sender.sendMessage(getMessageManager().getMessage(Messages.SENDER_ALREADY_HAS_REQUEST).toText());
-            target.sendMessage(getMessageManager().getMessage(Messages.TARGET_ALREADY_HAS_REQUEST).toText());
+            sender.sendMessage(getMessageManager().getMessage(Messages.SENDER_ALREADY_HAS_REQUEST).apply(msgArgs).toText());
+            target.sendMessage(getMessageManager().getMessage(Messages.TARGET_ALREADY_HAS_REQUEST).apply(msgArgs).toText());
         } else {
             getManager().request(sender, target.getUniqueId(), RequestType.GO_THERE);
             
-            sender.sendMessage(getMessageManager().getMessage(Messages.SENDER_REQUEST_TO).toText());
-            target.sendMessage(getMessageManager().getMessage(Messages.SENDER_REQUEST_TO).toText());
+            sender.sendMessage(getMessageManager().getMessage(Messages.SENDER_REQUEST_TO).apply(msgArgs).toText());
+            target.sendMessage(getMessageManager().getMessage(Messages.SENDER_REQUEST_TO).apply(msgArgs).toText());
         }
         
         return CommandResult.success();
