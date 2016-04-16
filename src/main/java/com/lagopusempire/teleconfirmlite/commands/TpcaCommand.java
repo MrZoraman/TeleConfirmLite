@@ -47,10 +47,6 @@ public class TpcaCommand extends CommandBase {
                         getManager().setPriorLocation(sender);
                         sender.setLocation(target.getLocation());
                 }
-//                getManager().setPriorLocation(sender.getUniqueId(), sender.getLocation());
-                
-//                sender.setLocation(loc);
-//                getManager().clearRequest(player.getUniqueId());//                getManager().clearRequest(player.getUniqueId());
         }
         
         return CommandResult.success();

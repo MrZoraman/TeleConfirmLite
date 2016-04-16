@@ -8,10 +8,6 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.world.Location;
 
-/**
- *
- * @author MrZoraman
- */
 public class RequestManager {
     
     private final Map<UUID, TclPlayerData> requests = new HashMap<>();
@@ -26,23 +22,15 @@ public class RequestManager {
     }
     
     public boolean request(Player sender, Player target, RequestType type) {
-        //these details are constructed from the target's prespective
-        RequestDetails details = new RequestDetails(sender.getUniqueId(), sender.getName(), type.reverse());
         TclPlayerData data = getPlayerData(target.getUniqueId());
         if(data.getRequestDetails() != null) {
             return false;
         }
+        //these details are constructed from the target's prespective
+        RequestDetails details = new RequestDetails(sender.getUniqueId(), sender.getName(), type.reverse());
         data.setRequestDetails(details);
         return true;
     }
-    
-//    public boolean hasPendingRequest(UUID playerId) {
-//        if(!requests.containsKey(playerId)) {
-//            return false;
-//        }
-//        TclPlayerData data = getPlayerData(playerId);
-//        return data.getRequestDetails() == null;
-//    }
     
     public AcceptResultPack accept(Player sender) {
         UUID senderId = sender.getUniqueId();
@@ -58,10 +46,6 @@ public class RequestManager {
             return new AcceptResultPack(AcceptResult.TARGET_OFFLINE, details.getTargetName());
         }
         
-//        Location loc = details.getType() == RequestType.GO_THERE ? 
-//                targetPlayer.get().getLocation() : 
-//                player.getLocation();
-        //Location loc = targetPlayer.get().getLocation();
         senderData.setRequestDetails(null);
         return new AcceptResultPack(details.getType(), targetPlayer.get());
     }
@@ -70,8 +54,6 @@ public class RequestManager {
         TclPlayerData data = getPlayerData(player.getUniqueId());
         data.setPriorLoc(player.getLocation());
     }
-    
-    
     
     public RequestDetails clearRequest(UUID playerId) {
         TclPlayerData data = getPlayerData(playerId);
