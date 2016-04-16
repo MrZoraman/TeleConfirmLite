@@ -31,6 +31,11 @@ public class TpcCommand extends CommandBase {
                 "target", target.getName()
         );
         
+        if(!getManager().isAcceptingRequests(target.getUniqueId())) {
+            sender.sendMessage(getMessageManager().getMessage(Messages.TARGET_NOT_ACCEPTING_REQUESTS).apply(msgArgs).toText());
+            return CommandResult.success();
+        }
+        
         if(getManager().getRequestDetails(target.getUniqueId()) != null) {
             sender.sendMessage(getMessageManager().getMessage(Messages.SENDER_ALREADY_HAS_REQUEST).apply(msgArgs).toText());
             target.sendMessage(getMessageManager().getMessage(Messages.TARGET_ALREADY_HAS_REQUEST).apply(msgArgs).toText());

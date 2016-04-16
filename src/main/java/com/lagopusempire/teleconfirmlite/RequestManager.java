@@ -46,7 +46,11 @@ public class RequestManager {
         return priorLoc;
     }
     
-    public void toggle(UUID playerId) {
-        getPlayerData(playerId).toggleAcceptingRequests();
+    public boolean toggleAcceptingRequests(UUID playerId) {
+        return getPlayerData(playerId).toggleAcceptingRequests();
+    }
+    
+    public boolean isAcceptingRequests(UUID playerId) {
+        return getPlayerData(playerId).isAcceptingRequests();
     }
 }

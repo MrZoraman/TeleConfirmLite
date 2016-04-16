@@ -10,8 +10,9 @@ public class TclPlayerData {
     private boolean acceptingRequests = true;
     private long requestStartTime = -1;
     
-    public void toggleAcceptingRequests() {
+    public boolean toggleAcceptingRequests() {
         acceptingRequests = !acceptingRequests;
+        return acceptingRequests;
     }
 
     public Location getPriorLoc() {

@@ -2,7 +2,6 @@ package com.lagopusempire.teleconfirmlite.commands;
 
 import com.google.common.collect.ImmutableMap;
 import com.lagopusempire.teleconfirmlite.RequestDetails;
-import com.lagopusempire.teleconfirmlite.RequestType;
 import com.lagopusempire.teleconfirmlite.messages.Messages;
 import java.util.Map;
 import java.util.Optional;

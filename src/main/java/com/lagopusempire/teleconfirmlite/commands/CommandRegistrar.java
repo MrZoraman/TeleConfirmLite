@@ -67,12 +67,14 @@ public class CommandRegistrar {
         Sponge.getCommandManager().register(plugin, tpcdCmdSpec, "tpcd", "tpdeny", "tpno");
         commands.add(tpcdCmd);
         
-//        CommandSpec tptoggleCmd = CommandSpec.builder()
-//                .description(Text.of("Toggle teleportation,"))
-//                .permission("tcl.tpctoggle")
-//                .executor(null)
-//                .build();
-//        Sponge.getCommandManager().register(plugin, tptoggleCmd, "tpctoggle", "tptoggle");
+        CommandBase tpctoggleCmd = new TpcToggleCmd();
+        CommandSpec tpctoggleCmdSpec = CommandSpec.builder()
+                .description(Text.of("Toggle teleportation,"))
+                .permission("tcl.tpctoggle")
+                .executor(tpctoggleCmd)
+                .build();
+        Sponge.getCommandManager().register(plugin, tpctoggleCmdSpec, "tpctoggle", "tptoggle");
+        commands.add(tpctoggleCmd);
         
         CommandBase tpcclearCmd = new TpcClearCommand();
         CommandSpec tpcclearCmdSpec = CommandSpec.builder()
