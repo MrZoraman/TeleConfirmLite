@@ -12,7 +12,7 @@ import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
-public class TpcToggleCmd extends CommandBase {
+public class TpcToggleCommand extends CommandBase {
 
     @Override
     protected void register(TeleConfirmLite plugin, CommandManager commandManager) {

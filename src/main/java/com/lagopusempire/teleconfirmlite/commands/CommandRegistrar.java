@@ -25,7 +25,7 @@ public class CommandRegistrar {
         
         commands.add(new TpcClearCommand());
         commands.add(new TpcCommand());
-        commands.add(new TpcToggleCmd());
+        commands.add(new TpcToggleCommand());
         commands.add(new TpcaCommand());
         commands.add(new TpcbackCommand());
         commands.add(new TpcdCommand());
