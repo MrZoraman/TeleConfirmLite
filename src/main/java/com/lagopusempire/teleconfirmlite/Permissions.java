@@ -13,7 +13,7 @@ public enum Permissions {
     USER("tcl.user"),
     ALL("tcl.*");
     
-    private String node;
+    private final String node;
     
     private Permissions(String node) {
         this.node = node;
