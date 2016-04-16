@@ -38,7 +38,7 @@ public class TpcCommand extends CommandBase {
             getManager().request(sender, target.getUniqueId(), RequestType.GO_THERE);
             
             sender.sendMessage(getMessageManager().getMessage(Messages.SENDER_REQUEST_TO).apply(msgArgs).toText());
-            target.sendMessage(getMessageManager().getMessage(Messages.SENDER_REQUEST_TO).apply(msgArgs).toText());
+            target.sendMessage(getMessageManager().getMessage(Messages.TARGET_REQUEST_TO).apply(msgArgs).toText());
         }
         
         return CommandResult.success();
