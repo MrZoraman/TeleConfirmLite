@@ -21,7 +21,7 @@ public class TpcaCommand extends CommandBase {
         }
         
         Player player = (Player) src;
-        AcceptResultPack pack = getManager().getRequest(player);
+        AcceptResultPack pack = getManager().accept(player);
         
         Map<String, String> msgArgs = ImmutableMap.of(
                 "target", pack.getTargetName()
@@ -36,8 +36,9 @@ public class TpcaCommand extends CommandBase {
                 break;
             case SUCCESS:
                 Location loc = pack.getLoc();
+                getManager().setPriorLocation(player.getUniqueId(), player.getLocation());
                 player.setLocation(loc);
-                getManager().clearRequest(player.getUniqueId());
+//                getManager().clearRequest(player.getUniqueId());
         }
         
         return CommandResult.success();

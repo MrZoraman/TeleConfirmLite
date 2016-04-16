@@ -44,7 +44,7 @@ public class RequestManager {
 //        return data.getRequestDetails() == null;
 //    }
     
-    public AcceptResultPack getRequest(Player player) {
+    public AcceptResultPack accept(Player player) {
         UUID playerId = player.getUniqueId();
         TclPlayerData data = getPlayerData(playerId);
         RequestDetails details = data.getRequestDetails();
@@ -53,19 +53,24 @@ public class RequestManager {
         }
         UUID target = details.getTarget();
         Optional<Player> targetPlayer = Sponge.getServer().getPlayer(target);
-        if(targetPlayer.isPresent()) {
-            data.setPriorLoc(player.getLocation());
-            data.setRequestDetails(null);
-            return new AcceptResultPack(targetPlayer.get().getLocation(), details.getTargetName());
+        if(!targetPlayer.isPresent()) {
+            return new AcceptResultPack(AcceptResult.TARGET_OFFLINE, details.getTargetName());
         }
-        return new AcceptResultPack(AcceptResult.TARGET_OFFLINE, details.getTargetName());
+        
+        Location loc = details.getType() == RequestType.COME_HERE ? 
+                targetPlayer.get().getLocation() : 
+                player.getLocation();
+        data.setRequestDetails(null);
+        return new AcceptResultPack(loc, details.getTargetName());
+    }
+    
+    public void setPriorLocation(UUID playerId, Location loc) {
+        TclPlayerData data = getPlayerData(playerId);
+        data.setPriorLoc(loc);
     }
     
     public RequestDetails clearRequest(UUID playerId) {
         TclPlayerData data = getPlayerData(playerId);
-        if(data == null) {
-            return null;
-        }
         
         RequestDetails details = data.getRequestDetails();
         data.setRequestDetails(null);
