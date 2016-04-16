@@ -26,14 +26,12 @@ public class TpcCommand extends CommandBase {
         Player sender = (Player) src;
         Player target = args.<Player>getOne("playername").get();
         
-        getManager().request(sender, target, RequestType.GO_THERE);
-        
         Map<String, String> msgArgs = ImmutableMap.of(
                 "sender", sender.getName(),
                 "target", target.getName()
         );
         
-        boolean success = getManager().request(sender, target, RequestType.COME_HERE);
+        boolean success = getManager().request(sender, target, RequestType.GO_THERE);
         Messages senderMessage = success ? Messages.SENDER_REQUEST_TO : Messages.SENDER_ALREADY_HAS_REQUEST;
         Messages targetMessage = success ? Messages.TARGET_REQUEST_TO : Messages.TARGET_ALREADY_HAS_REQUEST;
         
