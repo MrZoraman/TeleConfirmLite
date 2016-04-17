@@ -20,7 +20,6 @@ public class TpcToggleCommand extends CommandBase {
                 .description(Text.of("Toggle teleportation,"))
                 .permission(Permissions.TOGGLE.getNode())
                 .permission(Permissions.USER.getNode())
-                .permission(Permissions.ALL.getNode())
                 .executor(this)
                 .build();
         commandManager.register(plugin, cmdSpec, "tpctoggle", "tptoggle");

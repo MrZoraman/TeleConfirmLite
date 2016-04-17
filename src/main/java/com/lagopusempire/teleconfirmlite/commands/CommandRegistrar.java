@@ -18,7 +18,6 @@ public class CommandRegistrar {
         CommandSpec reloadCmdSpec = CommandSpec.builder()
                 .description(Text.of("Reloads TeleConfirmLite."))
                 .permission(Permissions.RELOAD.getNode())
-                .permission(Permissions.ALL.getNode())
                 .executor(new ReloadCommand(plugin))
                 .build();
         Sponge.getCommandManager().register(plugin, reloadCmdSpec, "tpcreload", "tpareload");

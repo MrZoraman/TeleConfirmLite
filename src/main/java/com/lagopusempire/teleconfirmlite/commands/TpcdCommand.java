@@ -25,7 +25,6 @@ public class TpcdCommand extends CommandBase {
                 .description(Text.of("Rejects a teleport request."))
                 .permission(Permissions.TPCD.getNode())
                 .permission(Permissions.USER.getNode())
-                .permission(Permissions.ALL.getNode())
                 .executor(this)
                 .build();
         commandManager.register(plugin, cmdSpec, "tpcd", "tpdeny", "tpno");

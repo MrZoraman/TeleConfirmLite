@@ -10,8 +10,7 @@ public enum Permissions {
     CLEAR("tcl.tpcclear"),
     BACK("tcl.tpcback"),
     
-    USER("tcl.user"),
-    ALL("tcl.*");
+    USER("tcl.user");
     
     private final String node;
     

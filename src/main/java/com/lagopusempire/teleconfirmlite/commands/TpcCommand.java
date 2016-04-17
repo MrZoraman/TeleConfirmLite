@@ -28,7 +28,6 @@ public class TpcCommand extends CommandBase {
                 .description(Text.of("Request to teleport to the specified player."))
                 .permission(Permissions.TPC.getNode())
                 .permission(Permissions.USER.getNode())
-                .permission(Permissions.ALL.getNode())
                 .arguments(
                     GenericArguments.onlyOne(GenericArguments.player(Text.of("playername"))))
                 .executor(this)

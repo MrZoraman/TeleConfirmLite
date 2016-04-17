@@ -23,7 +23,6 @@ public class TpcClearCommand extends CommandBase {
                 .description(Text.of("Removes a pending request."))
                 .permission(Permissions.CLEAR.getNode())
                 .permission(Permissions.USER.getNode())
-                .permission(Permissions.ALL.getNode())
                 .executor(this)
                 .build();
         commandManager.register(plugin, cmdSpec, "tpcclear", "tpaclear", "tpclear");

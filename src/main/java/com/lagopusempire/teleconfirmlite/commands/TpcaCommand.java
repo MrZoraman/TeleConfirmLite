@@ -25,7 +25,6 @@ public class TpcaCommand extends CommandBase {
                 .description(Text.of("Accepts a teleport request."))
                 .permission(Permissions.TPCA.getNode())
                 .permission(Permissions.USER.getNode())
-                .permission(Permissions.ALL.getNode())
                 .executor(this)
                 .build();
          commandManager.register(plugin, cmdSpec, "tpca", "tpaccept", "tpyes");
