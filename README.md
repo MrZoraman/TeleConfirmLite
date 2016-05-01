@@ -5,7 +5,7 @@ TeleConfirmLite is the successor to the TeleConfirmLite that existed back in the
 Grab the latest jar from the releases page on github and put it in the mods folder of your sponge server.
 
 ## Commands
-| Command  | Permission node | Aliases | Description |
+| Command  | Permission Node | Aliases | Description |
 | -------- | --------------- | ------- | ----------- |
 | tpcreload  | tcl.reload  | tpareload | hot-reloads the yml config files |
 | tpcclear  | tcl.tpcclear | tpaclear, tpclear  | Clears a pending teleport request  |
