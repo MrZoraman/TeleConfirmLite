@@ -12,11 +12,15 @@ request:
     already_has:
         sender: '&cFailed to send request to %target%, as %target% already has a pending request!'
         target: '&c%sender% tried to send you a teleport request, but you already have a pending request!'
-no_pending_request: "&cYou don't have any pending requests!"
-target_offline: "&c%target% is not online!"
+    target_not_accepting_requests: "&c%target% is not accepting requests!"
+accept:
+    no_cross_world_tp:
+        sender: '&cYou failed to teleport because cross world teleportation is not allowed!'
+        target: '&c%sender% failed to teleport because cross world teleportation is not allowed!'
+    no_pending_request: "&cYou don't have any pending requests!"
+    target_offline: "&c%target% is not online!"
 request_cleared: "&2Request (from %target%) cleared!"
 sender_accepting_requests:
     yes: '&2You are now accepting requests.'
     no: '&2You are no longer accepting requests.'
-target_not_accepting_requests: "&c%target% is not accepting requests!"
 no_prior_loc: "&cYou do not have a prior location to return to!"

@@ -18,6 +18,12 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
 public class TpcaCommand extends CommandBase {
+    
+    private static boolean preventCrossWorldTp = false;
+    
+    public static void setPreventCrossWorldTp(boolean value) {
+        preventCrossWorldTp = value;
+    }
 
     @Override
     protected void register(TeleConfirmLite plugin, CommandManager commandManager) {
@@ -47,7 +53,8 @@ public class TpcaCommand extends CommandBase {
         }
         
         Map<String, String> msgArgs = ImmutableMap.of(
-                "target", details.getTargetName()
+                "target", details.getTargetName(),
+                "sender", sender.getName()
         );
         
         Optional<Player> targetOpt = Sponge.getServer().getPlayer(details.getTarget());
@@ -57,6 +64,12 @@ public class TpcaCommand extends CommandBase {
         }
         
         Player target = targetOpt.get();
+        
+        if(preventCrossWorldTp && !target.getWorld().equals(sender.getWorld())) {
+            sender.sendMessage(getMessageManager().getMessage(Messages.SENDER_CROSS_WORLD_FAIL).apply(msgArgs).toText());
+            sender.sendMessage(getMessageManager().getMessage(Messages.TARGET_CROSS_WORLD_FAIL).apply(msgArgs).toText());
+            return CommandResult.success();
+        }
         
         switch(details.getType()) {
             case COME_HERE:
