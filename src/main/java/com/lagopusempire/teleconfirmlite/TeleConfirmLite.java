@@ -67,7 +67,7 @@ public class TeleConfirmLite {
             if(!messagesConfFile.exists()) {
                 logger.info("Writing default messages.conf");
                 try (InputStream defaultMessagesStream = this.getClass().getResourceAsStream("messages.yml")) {
-                    Utils.ExportResource(this.getClass(), defaultMessagesStream, messagesConfFile);
+                    Utils.ExportResource(defaultMessagesStream, messagesConfFile);
                 }
             }
             
