@@ -1,6 +1,10 @@
 # TeleConfirmLite
 TeleConfirmLite is the successor to the TeleConfirmLite that existed back in the hmod days and bukkit days for sponge.
 
+Thanks Ementalo for letting me take the project to sponge!
+
+Read the comments in the release notes for various up-to-date info.
+
 ## Installing
 Grab the latest jar from the releases page on github and put it in the mods folder of your sponge server.
 
@@ -18,3 +22,9 @@ Grab the latest jar from the releases page on github and put it in the mods fold
 
 ## Permissions
 The ```tcl.user``` permission grants all of the above permissions except for ```tcl.reload```.
+
+## Configuration
+| Key | Default Value | Description |
+| --- | ------------- | ----------- |
+| requestTimeout | 30 | The amount of time to pass until a request automatically goes away |
+| preventCrossWorldTp | false | Whether or not to let the plugin teleport players across worlds |
