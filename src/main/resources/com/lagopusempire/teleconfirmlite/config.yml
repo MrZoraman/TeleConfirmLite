@@ -1,3 +1,2 @@
-clearRequestsOnWorldChange: false
 requestTimeout: 30
 preventCrossWorldTp : false

@@ -33,7 +33,6 @@ public class TeleConfirmLite {
     private Path privateConfigFile;
 
     private final RequestManager requestManager = new RequestManager();
-    private final TeleportListener teleportListener = new TeleportListener(requestManager);
     
     private CommandRegistrar commandRegistrar;
     private MessageManager mm;
@@ -86,11 +85,6 @@ public class TeleConfirmLite {
             
             TclPlayerData.setTimeout(config.getValue(ConfigKeys.REQUEST_TIMEOUT.getKey()));
             TpcaCommand.setPreventCrossWorldTp(config.getValue(ConfigKeys.PREVENT_CROSS_WORLD_TP.getKey()));
-            if(config.getValue(ConfigKeys.CLEAR_REQUESTS_ON_WORLD_CHANGE.getKey())) {
-                Sponge.getEventManager().registerListeners(this, teleportListener);
-            } else {
-                Sponge.getEventManager().unregisterListeners(teleportListener);
-            }
             
             commandRegistrar.setEnabled(true);
             return true;
