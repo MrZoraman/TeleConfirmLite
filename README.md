@@ -1,9 +1,10 @@
+# TeleConfirmLite
 TeleConfirmLite is the successor to the TeleConfirmLite that existed back in the hmod days and bukkit days for sponge.
 
-# Installing
+## Installing
 Grab the latest jar from the releases page on github and put it in the mods folder of your sponge server.
 
-# Commands
+## Commands
 | Command  | Permission node | Aliases | Description |
 | -------- | --------------- | ------- | ----------- |
 | tpcreload  | tcl.reload  | tpareload | hot-reloads the yml config files |
@@ -15,5 +16,5 @@ Grab the latest jar from the releases page on github and put it in the mods fold
 | tpcd | tcl.tpcd | tpdeny, tpno  | Denies a teleport request |
 | tpcback | tcl.tpcback | tpaback  | Returns you to your previous location |
 
-# Permissions
-The ```tcl.user``` permission grants all of the above permissions except for tcl.reload.
+## Permissions
+The ```tcl.user``` permission grants all of the above permissions except for ```tcl.reload```.
