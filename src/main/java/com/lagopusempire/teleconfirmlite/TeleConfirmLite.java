@@ -58,6 +58,8 @@ public class TeleConfirmLite {
         try {
             Path pluginDir = privateConfigDir.getParent();
             File pluginPath = pluginDir.toFile();
+            
+            //messages.yml
             File messagesConfFile = new File(pluginPath + File.separator + "messages.yml");
             if(!messagesConfFile.exists()) {
                 logger.info("Writing default messages.yml");
@@ -73,6 +75,24 @@ public class TeleConfirmLite {
             messagesConfig.write(new FileOutputStream(messagesConfFile));
             
             mm = new MessageManager(messagesConfig);
+            
+            //config.yml
+            File configFile = new File(pluginPath + File.separator + "config.yml");
+            if(!configFile.exists()) {
+                logger.info("Writing default config.yml");
+                try (InputStream defaultConfigStream = this.getClass().getResourceAsStream("config.yml")) {
+                    Utils.ExportResource(defaultConfigStream, configFile);
+                }
+            }
+            
+            IYamlConfig config = new YamlConfig(new FileInputStream(messagesConfFile));
+            try (InputStream templateConfig = this.getClass().getResourceAsStream("config.yml")) {
+                config.merge(templateConfig);
+            }
+            config.write(new FileOutputStream(configFile));
+            
+            TclPlayerData.setTimeout(config.getValue(ConfigKeys.REQUEST_TIMEOUT.getKey()));
+            
             commandRegistrar.setEnabled(true);
             return true;
         } catch (Exception e) {

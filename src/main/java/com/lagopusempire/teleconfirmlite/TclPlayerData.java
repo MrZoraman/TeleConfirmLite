@@ -3,7 +3,11 @@ package com.lagopusempire.teleconfirmlite;
 import org.spongepowered.api.world.Location;
 
 public class TclPlayerData {
-    private static final int TIMEOUT = 10;
+    private static int timeout = 10;
+    
+    static void setTimeout(int timeout) {
+        TclPlayerData.timeout = timeout;
+    }
     
     private Location priorLoc = null;
     private RequestDetails requestDetails = null;
@@ -25,7 +29,7 @@ public class TclPlayerData {
 
     public RequestDetails getRequestDetails() {
         long now = System.currentTimeMillis() / 1000;
-        if(requestStartTime + TIMEOUT < now) {
+        if(requestStartTime + timeout < now) {
             setRequestDetails(null);
         }
         
