@@ -2,9 +2,14 @@ package com.lagopusempire.teleconfirmlite;
 
 import com.lagopusempire.teleconfirmlite.commands.CommandRegistrar;
 import com.google.inject.Inject;
+import com.lagopusempire.phiinae.IYamlConfig;
+import com.lagopusempire.phiinae.YamlConfig;
 import com.lagopusempire.teleconfirmlite.messages.MessageManager;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -55,19 +60,22 @@ public class TeleConfirmLite {
     }
 
     public boolean load() {
-        try {            
+        try {
             Path pluginDir = privateConfigDir.getParent();
             File pluginPath = pluginDir.toFile();
-            File messagesConfFile = new File(pluginPath, "com/lagopusempire/teleconfirmlite/messages.yml");
-            Path messagesConfPath = Paths.get(messagesConfFile.toURI());
+            File messagesConfFile = new File(pluginPath + File.separator + "messages.yml");
             if(!messagesConfFile.exists()) {
                 logger.info("Writing default messages.conf");
                 Utils.ExportResource(this.getClass(), "messages.yml", pluginPath);
-            } else {
-                System.out.println("not doing much...");
             }
             
-//            mm = new MessageManager(rootNode);
+            IYamlConfig messagesConfig = new YamlConfig(new FileInputStream(messagesConfFile));
+            try (InputStream templateMessages = this.getClass().getResourceAsStream("com/lagopusempire/teleconfirmlite/messages.yml")) {
+                messagesConfig.merge(templateMessages);
+            }
+            messagesConfig.write(new FileOutputStream(messagesConfFile));
+            
+            mm = new MessageManager(messagesConfig);
             commandRegistrar.initCommands(requestManager, mm);
             return true;
         } catch (Exception e) {

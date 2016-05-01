@@ -1,22 +1,20 @@
 package com.lagopusempire.teleconfirmlite.messages;
 
-import java.util.Map;
-import ninja.leaping.configurate.ConfigurationNode;
+import com.lagopusempire.phiinae.IYamlConfig;
 
 public class MessageManager {
-    private final Map<Object, ? extends ConfigurationNode> messageNodes;
+    private final IYamlConfig yamlConfig;
     
-    public MessageManager(ConfigurationNode root) {
-        messageNodes = root.getChildrenMap();
+    public MessageManager(IYamlConfig yamlConfig) {
+        this.yamlConfig = yamlConfig;
     }
     
     public MessageFormatter getMessage(Messages message) {
         String key = message.getKey();
-        ConfigurationNode node = messageNodes.get(key);
-        if(node == null || node.getString() == null) {
+        if(!yamlConfig.containsKey(key)) {
             return new MessageFormatter("Message '" + key + "' not found!");
         }
         
-        return new MessageFormatter(node.getString());
+        return new MessageFormatter(yamlConfig.getValue(key));
     }
 }
