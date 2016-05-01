@@ -62,9 +62,10 @@ public class TeleConfirmLite {
             
             IYamlConfig messagesConfig = new YamlConfig(new FileInputStream(messagesConfFile));
             try (InputStream templateMessages = this.getClass().getResourceAsStream("messages.yml")) {
-                messagesConfig.merge(templateMessages);
+                if(messagesConfig.merge(templateMessages)) {
+                    messagesConfig.write(new FileOutputStream(messagesConfFile));
+                }
             }
-            messagesConfig.write(new FileOutputStream(messagesConfFile));
             
             mm = new MessageManager(messagesConfig);
             
@@ -79,9 +80,10 @@ public class TeleConfirmLite {
             
             IYamlConfig config = new YamlConfig(new FileInputStream(messagesConfFile));
             try (InputStream templateConfig = this.getClass().getResourceAsStream("config.yml")) {
-                config.merge(templateConfig);
+                if(config.merge(templateConfig)) {
+                    config.write(new FileOutputStream(configFile));
+                }
             }
-            config.write(new FileOutputStream(configFile));
             
             TclPlayerData.setTimeout(config.getValue(ConfigKeys.REQUEST_TIMEOUT.getKey()));
             TpcaCommand.setPreventCrossWorldTp(config.getValue(ConfigKeys.PREVENT_CROSS_WORLD_TP.getKey()));
