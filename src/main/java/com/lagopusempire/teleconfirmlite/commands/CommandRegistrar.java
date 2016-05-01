@@ -7,6 +7,7 @@ import com.lagopusempire.teleconfirmlite.messages.MessageManager;
 import java.util.HashSet;
 import java.util.Set;
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.command.CommandManager;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.text.Text;
 
@@ -40,6 +41,13 @@ public class CommandRegistrar {
     public void setEnabled(boolean enabled) {
         for(CommandBase cmd : commands) {
             cmd.setEnabled(enabled);
+        }
+    }
+    
+    public void registerCommands(TeleConfirmLite plugin) {
+        CommandManager cm = Sponge.getCommandManager();
+        for(CommandBase cmd : commands) {
+            cmd.register(plugin, cm);
         }
     }
 }

@@ -50,6 +50,7 @@ public class TeleConfirmLite {
     public void onPreInit(GamePreInitializationEvent event) {        
         commandRegistrar = new CommandRegistrar(this);
         load();
+        commandRegistrar.registerCommands(this);
     }
 
     public boolean load() {
