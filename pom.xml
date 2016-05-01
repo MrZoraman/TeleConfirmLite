@@ -22,6 +22,10 @@
             <id>sponge-repo</id>
             <url>http://repo.spongepowered.org/maven</url>
         </repository>
+        <repository>
+            <id>lago-repo</id>
+            <url>http://repo.lagopusempire.com:3000</url>
+        </repository>
     </repositories>
     
     <dependencies>
@@ -37,6 +41,11 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.lagopusempire</groupId>
+            <artifactId>Phiinae</artifactId>
+            <version>2.0</version>
         </dependency>
     </dependencies>
 

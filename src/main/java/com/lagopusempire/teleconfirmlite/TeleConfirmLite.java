@@ -50,6 +50,14 @@ public class TeleConfirmLite {
 
     @Listener
     public void onPreInit(GamePreInitializationEvent event) {
+        try {
+        Class.forName( "org.yaml.snakeyaml.Yaml" );
+       } catch( ClassNotFoundException e ) {
+           logger.error("looks like yaml isn't loaded!", e);
+       }
+        
+        System.out.println("I got this far, I think it exists!");
+        
         commandRegistrar = new CommandRegistrar(this);
         load();
     }
