@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.nio.file.Path;
 import org.slf4j.Logger;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
@@ -42,6 +43,7 @@ public class TeleConfirmLite {
     private Path privateConfigDir;
 
     private final RequestManager requestManager = new RequestManager();
+    private final TeleportListener teleportListener = new TeleportListener(requestManager);
     
     private CommandRegistrar commandRegistrar;
     private MessageManager mm;
@@ -92,6 +94,11 @@ public class TeleConfirmLite {
             config.write(new FileOutputStream(configFile));
             
             TclPlayerData.setTimeout(config.getValue(ConfigKeys.REQUEST_TIMEOUT.getKey()));
+            if(config.getValue(ConfigKeys.CLEAR_REQUESTS_ON_WORLD_CHANGE.getKey())) {
+                Sponge.getEventManager().registerListeners(this, teleportListener);
+            } else {
+                Sponge.getEventManager().unregisterListeners(teleportListener);
+            }
             
             commandRegistrar.setEnabled(true);
             return true;
