@@ -19,9 +19,6 @@ import org.spongepowered.api.plugin.Plugin;
 //import org.spongepowered.api.service.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
 
-/**
- * A simple sponge plugin
- */
 @Plugin(id = PomData.ARTIFACT_ID,
         authors = PomData.AUTHORS,
         description = PomData.DESCRIPTION,
@@ -29,16 +26,9 @@ import org.spongepowered.api.event.Listener;
         version = PomData.VERSION)
 public class TeleConfirmLite {
 
-//    // These are all injected on plugin load for users to work from
     @Inject
     private Logger logger;
-//    // Give us a configuration to work from
-////    @Inject @DefaultConfig(sharedRoot = true) private ConfigurationLoader<CommentedConfigurationNode> configLoader;
-//    @Inject private Game game;
-
-//    @Inject
-//    @DefaultConfig(sharedRoot = false)
-//    private ConfigurationLoader<CommentedConfigurationNode> configLoader;
+    
     @Inject
     @DefaultConfig(sharedRoot = false)
     private Path privateConfigDir;
