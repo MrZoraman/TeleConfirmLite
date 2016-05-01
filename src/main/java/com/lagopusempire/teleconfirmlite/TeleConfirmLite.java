@@ -16,7 +16,6 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
-//import org.spongepowered.api.service.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
 
 @Plugin(id = PomData.ARTIFACT_ID,
