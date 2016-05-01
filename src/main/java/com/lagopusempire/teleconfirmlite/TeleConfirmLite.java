@@ -8,15 +8,8 @@ import com.lagopusempire.teleconfirmlite.messages.MessageManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import ninja.leaping.configurate.ConfigurationNode;
-import ninja.leaping.configurate.commented.CommentedConfigurationNode;
-import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
-import ninja.leaping.configurate.loader.ConfigurationLoader;
 import org.slf4j.Logger;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
@@ -78,13 +71,13 @@ public class TeleConfirmLite {
             messagesConfig.write(new FileOutputStream(messagesConfFile));
             
             mm = new MessageManager(messagesConfig);
-            commandRegistrar.initCommands(requestManager, mm);
+            commandRegistrar.setEnabled(true);
             return true;
         } catch (Exception e) {
             logger.error("Failed to load configuration files!", e);
+            commandRegistrar.setEnabled(false);
             return false;
         } finally {
-            commandRegistrar.setEnabled(false);
             commandRegistrar.initCommands(requestManager, mm);
         }
     }
