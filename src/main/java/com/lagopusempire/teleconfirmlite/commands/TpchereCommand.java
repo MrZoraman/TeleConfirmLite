@@ -46,6 +46,11 @@ public class TpchereCommand extends CommandBase {
                 "target", target.getName()
         );
         
+        if(sender.getUniqueId().equals(target.getUniqueId())) {
+            sender.sendMessage(getMessageManager().getMessage(Messages.TP_SELF).apply(msgArgs).toText());
+            return CommandResult.success();
+        }
+        
         if(!getManager().isAcceptingRequests(target.getUniqueId())) {
             sender.sendMessage(getMessageManager().getMessage(Messages.TARGET_NOT_ACCEPTING_REQUESTS).apply(msgArgs).toText());
             return CommandResult.success();

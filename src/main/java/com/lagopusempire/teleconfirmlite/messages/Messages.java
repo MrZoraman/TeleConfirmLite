@@ -18,7 +18,8 @@ public enum Messages {
     TARGET_NOT_ACCEPTING_REQUESTS("request.target_not_accepting_requests"),
     NO_PRIOR_LOC("no_prior_loc"),
     SENDER_CROSS_WORLD_FAIL("accept.no_cross_world_tp.sender"),
-    TARGET_CROSS_WORLD_FAIL("accept.no_cross_world_tp.target");
+    TARGET_CROSS_WORLD_FAIL("accept.no_cross_world_tp.target"),
+    TP_SELF("request.self");
     
     private String key;
     

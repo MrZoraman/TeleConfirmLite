@@ -13,6 +13,7 @@ request:
         sender: '&cFailed to send request to %target%, as %target% already has a pending request!'
         target: '&c%sender% tried to send you a teleport request, but you already have a pending request!'
     target_not_accepting_requests: "&c%target% is not accepting requests!"
+    self: '&cYou cannot teleport to yourself...'
 accept:
     no_cross_world_tp:
         sender: '&cYou failed to teleport because cross world teleportation is not allowed!'
