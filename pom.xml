@@ -101,6 +101,12 @@
                                     <exclude>org.yaml:*</exclude>
                                 </excludes>
                             </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.lagopusempire.phiinae</pattern>
+                                    <shadedPattern>com.lagopusempire.teleconfirmlite.phiinae</shadedPattern>
+                                </relocation>
+                            </relocations>
                         </configuration>
                     </execution>
                 </executions>

@@ -30,7 +30,7 @@ public class TeleConfirmLite {
     
     @Inject
     @DefaultConfig(sharedRoot = false)
-    private Path privateConfigDir;
+    private Path privateConfigFile;
 
     private final RequestManager requestManager = new RequestManager();
     private final TeleportListener teleportListener = new TeleportListener(requestManager);
@@ -46,9 +46,8 @@ public class TeleConfirmLite {
     }
 
     public boolean load() {
-        System.out.println(privateConfigDir);
         try {
-            Path pluginDir = privateConfigDir.getParent();
+            Path pluginDir = privateConfigFile.getParent();
             File pluginPath = pluginDir.toFile();
             
             //messages.yml
