@@ -49,49 +49,28 @@ public class TeleConfirmLite {
     private MessageManager mm;
 
     @Listener
-    public void onPreInit(GamePreInitializationEvent event) {
-        try {
-        Class.forName( "org.yaml.snakeyaml.Yaml" );
-       } catch( ClassNotFoundException e ) {
-           logger.error("looks like yaml isn't loaded!", e);
-       }
-        
-        System.out.println("I got this far, I think it exists!");
-        
+    public void onPreInit(GamePreInitializationEvent event) {        
         commandRegistrar = new CommandRegistrar(this);
         load();
     }
 
     public boolean load() {
-        try {
-            ConfigurationNode rootNode;
-            
+        try {            
             Path pluginDir = privateConfigDir.getParent();
             File pluginPath = pluginDir.toFile();
-            File messagesConfFile = new File(pluginPath, "messages.conf");
+            File messagesConfFile = new File(pluginPath, "com/lagopusempire/teleconfirmlite/messages.yml");
             Path messagesConfPath = Paths.get(messagesConfFile.toURI());
             if(!messagesConfFile.exists()) {
                 logger.info("Writing default messages.conf");
-                URL jarMessages = this.getClass().getResource("messages.conf");
-                ConfigurationLoader<CommentedConfigurationNode> messagesConf = HoconConfigurationLoader
-                        .builder()
-                        .setPath(messagesConfPath)
-                        .setURL(jarMessages)
-                        .build();
-                messagesConf.load();
-                rootNode = messagesConf.load();
-                messagesConf.save(rootNode);
+                Utils.ExportResource(this.getClass(), "messages.yml", pluginPath);
             } else {
-                ConfigurationLoader<CommentedConfigurationNode> messagesConf = HoconConfigurationLoader.builder()
-                        .setPath(messagesConfPath)
-                        .build();
-                rootNode = messagesConf.load();
+                System.out.println("not doing much...");
             }
             
-            mm = new MessageManager(rootNode);
+//            mm = new MessageManager(rootNode);
             commandRegistrar.initCommands(requestManager, mm);
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error("Failed to load configuration files!", e);
             return false;
         } finally {
