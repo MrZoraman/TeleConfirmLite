@@ -21,6 +21,6 @@ accept:
     target_offline: "&c%target% is not online!"
 request_cleared: "&2Request (from %target%) cleared!"
 sender_accepting_requests:
-    yes: '&2You are now accepting requests.'
-    no: '&2You are no longer accepting requests.'
+    active: '&2You are now accepting requests.'
+    inactive: '&2You are no longer accepting requests.'
 no_prior_loc: "&cYou do not have a prior location to return to!"
