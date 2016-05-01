@@ -4,6 +4,7 @@ import com.lagopusempire.teleconfirmlite.commands.CommandRegistrar;
 import com.google.inject.Inject;
 import com.lagopusempire.phiinae.IYamlConfig;
 import com.lagopusempire.phiinae.YamlConfig;
+import com.lagopusempire.teleconfirmlite.commands.TpcaCommand;
 import com.lagopusempire.teleconfirmlite.messages.MessageManager;
 import java.io.File;
 import java.io.FileInputStream;
@@ -94,6 +95,7 @@ public class TeleConfirmLite {
             config.write(new FileOutputStream(configFile));
             
             TclPlayerData.setTimeout(config.getValue(ConfigKeys.REQUEST_TIMEOUT.getKey()));
+            TpcaCommand.setPreventCrossWorldTp(config.getValue(ConfigKeys.PREVENT_CROSS_WORLD_TP.getKey()));
             if(config.getValue(ConfigKeys.CLEAR_REQUESTS_ON_WORLD_CHANGE.getKey())) {
                 Sponge.getEventManager().registerListeners(this, teleportListener);
             } else {
