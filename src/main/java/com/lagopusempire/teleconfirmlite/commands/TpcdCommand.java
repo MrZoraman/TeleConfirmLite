@@ -58,6 +58,8 @@ public class TpcdCommand extends CommandBase {
             target.get().sendMessage(getMessageManager().getMessage(Messages.TARGET_REQUEST_DENIED).apply(msgArgs).toText());
         }
         
+        getManager().clearRequestDetails(sender.getUniqueId());
+        
         return CommandResult.success();
     }
 }
