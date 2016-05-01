@@ -67,7 +67,7 @@ public class TpcaCommand extends CommandBase {
         
         if(preventCrossWorldTp && !target.getWorld().equals(sender.getWorld())) {
             sender.sendMessage(getMessageManager().getMessage(Messages.SENDER_CROSS_WORLD_FAIL).apply(msgArgs).toText());
-            sender.sendMessage(getMessageManager().getMessage(Messages.TARGET_CROSS_WORLD_FAIL).apply(msgArgs).toText());
+            target.sendMessage(getMessageManager().getMessage(Messages.TARGET_CROSS_WORLD_FAIL).apply(msgArgs).toText());
             return CommandResult.success();
         }
         
