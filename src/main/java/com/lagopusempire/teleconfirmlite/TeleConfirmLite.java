@@ -77,7 +77,7 @@ public class TeleConfirmLite {
                 }
             }
             
-            IYamlConfig config = new YamlConfig(new FileInputStream(messagesConfFile));
+            IYamlConfig config = new YamlConfig(new FileInputStream(configFile));
             try (InputStream templateConfig = this.getClass().getResourceAsStream("config.yml")) {
                 if(config.merge(templateConfig)) {
                     config.write(new FileOutputStream(configFile));
