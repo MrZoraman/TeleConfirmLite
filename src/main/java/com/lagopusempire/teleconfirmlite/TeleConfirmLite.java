@@ -66,11 +66,13 @@ public class TeleConfirmLite {
             File messagesConfFile = new File(pluginPath + File.separator + "messages.yml");
             if(!messagesConfFile.exists()) {
                 logger.info("Writing default messages.conf");
-                Utils.ExportResource(this.getClass(), "messages.yml", pluginPath);
+                try (InputStream defaultMessagesStream = this.getClass().getResourceAsStream("messages.yml")) {
+                    Utils.ExportResource(this.getClass(), defaultMessagesStream, messagesConfFile);
+                }
             }
             
             IYamlConfig messagesConfig = new YamlConfig(new FileInputStream(messagesConfFile));
-            try (InputStream templateMessages = this.getClass().getResourceAsStream("com/lagopusempire/teleconfirmlite/messages.yml")) {
+            try (InputStream templateMessages = this.getClass().getResourceAsStream("messages.yml")) {
                 messagesConfig.merge(templateMessages);
             }
             messagesConfig.write(new FileOutputStream(messagesConfFile));
