@@ -58,7 +58,7 @@ public class TeleConfirmLite {
             File pluginPath = pluginDir.toFile();
             File messagesConfFile = new File(pluginPath + File.separator + "messages.yml");
             if(!messagesConfFile.exists()) {
-                logger.info("Writing default messages.conf");
+                logger.info("Writing default messages.yml");
                 try (InputStream defaultMessagesStream = this.getClass().getResourceAsStream("messages.yml")) {
                     Utils.ExportResource(defaultMessagesStream, messagesConfFile);
                 }
