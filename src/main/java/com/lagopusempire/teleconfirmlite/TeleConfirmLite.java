@@ -54,6 +54,7 @@ public class TeleConfirmLite {
     }
 
     public boolean load() {
+        System.out.println(privateConfigDir);
         try {
             Path pluginDir = privateConfigDir.getParent();
             File pluginPath = pluginDir.toFile();
